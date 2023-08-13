@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1037853195333",
+    "firebase_url": "https://groupathy-f7074.firebaseio.com",
+    "project_id": "groupathy-f7074",
+    "storage_bucket": "groupathy-f7074.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037853195333:android:6bc60ccd0d9098d304f72c",
+        "android_client_info": {
+          "package_name": "com.groupathy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037853195333-l1dd80ojk9s8acq61q9108pgndfen3n3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.groupathy",
+            "certificate_hash": "6848c3f11482f94a387efe9531dc1faad26f596a"
+          }
+        },
+        {
+          "client_id": "1037853195333-fqkuk5ope38baqd6sesi6q1mt5u6shaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAssunqrdmje4lefC1ZJfcUoztj6ACxMSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037853195333-fqkuk5ope38baqd6sesi6q1mt5u6shaq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
