@@ -1,6 +1,6 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import ProgressBar from '../../components/commons/CircularProgress';
+//import ProgressBar from '../../components/commons/CircularProgress';
 import React, {PureComponent} from 'react';
 import {
   DeviceEventEmitter,
@@ -151,7 +151,7 @@ export class IllnessGroups extends PureComponent<
           )
         ) : (
           <View style={styles.progressBar}>
-            <ProgressBar />
+            {/* <ProgressBar /> */}
           </View>
         )}
       </View>

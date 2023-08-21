@@ -1,7 +1,7 @@
 import routes, {AppRoutes, Route} from './routes';
 import {getKeyValue} from '../utils';
 
-const parse = require('url-parse');
+import parse from 'url-parse';
 
 export const screenForPath = (
   path: string,

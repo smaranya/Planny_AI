@@ -220,10 +220,10 @@ export class MainResultDeatilView extends PureComponent<
           backgroundWidth={getSpace(Spaces.small)}
           fill={getScoreFill(this.props.scoreOutOf, this.props.score)}
           tintColor={getColor({color: Colors.veryMild})}
-          tintColorSecondary={getColor({
-            color: Colors.graphFill,
-            opacity: 100,
-          })}
+          // tintColorSecondary={getColor({
+          //   color: Colors.graphFill,
+          //   opacity: 100,
+          // })}
           backgroundColor={getColor({
             color: Colors.secondaryColor,
             opacity: 80,

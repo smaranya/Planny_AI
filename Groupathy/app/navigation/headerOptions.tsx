@@ -14,8 +14,7 @@ import {FontStyles} from '../styles/fonts/names';
 import {Sizes} from '../styles/fonts/sizes';
 import {Colors, getColor} from '../styles/colors';
 import {
-  StackHeaderLeftButtonProps,
-  StackHeaderTitleProps,
+  StackHeaderProps,
   StackNavigationProp,
 } from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
@@ -58,44 +57,44 @@ const styles = StyleSheet.create({
   },
 });
 
-export type HeaderTitleProps = {
-  route: RouteProp<any, any>;
-  navigation: StackNavigationProp<any, any>;
-} & Partial<StackHeaderTitleProps>;
+// export type HeaderTitleProps = {
+//   route: RouteProp<any, any>;
+//   navigation: StackNavigationProp<any, any>;
+// } & Partial<StackHeaderTitleProps>;
 
 export type HeaderBackgroundProps = {
   route: RouteProp<any, any>;
   style: StyleProp<ViewStyle>;
 };
 
-export type HeaderLeftProps = {
-  navigation: StackNavigationProp<any, any>;
-} & Partial<StackHeaderLeftButtonProps>;
+// export type HeaderLeftProps = {
+//   navigation: StackNavigationProp<any, any>;
+// } & Partial<StackHeaderLeftButtonProps>;
 
-export const HeaderTitle = (props: HeaderTitleProps) => {
-  const {route, tintColor} = props;
-  const insets = useSafeAreaInsets();
-  const headerHeight = insets.top + HEADER_HEIGHT;
-  const title =
-    route.params && (route.params.headerTitle || route.params.title)
-      ? route.params.headerTitle || route.params.title
-      : HeaderTitleMap[route.name];
-  return (
-    <TextView
-      fontFamily={FontStyles.bold}
-      fontSize={Sizes.large}
-      style={[
-        styles.titleStyle,
-        {
-          height: headerHeight,
-          color: tintColor || defaultHeaderTintColor,
-          marginTop: 1.5 * insets.top,
-        },
-      ]}>
-      {title}
-    </TextView>
-  );
-};
+// export const HeaderTitle = (props: HeaderTitle) => {
+//   const {route, tintColor} = props;
+//   const insets = useSafeAreaInsets();
+//   const headerHeight = insets.top + HEADER_HEIGHT;
+//   const title =
+//     route.params && (route.params.headerTitle || route.params.title)
+//       ? route.params.headerTitle || route.params.title
+//       : HeaderTitleMap[route.name];
+//   return (
+//     <TextView
+//       fontFamily={FontStyles.bold}
+//       fontSize={Sizes.large}
+//       style={[
+//         styles.titleStyle,
+//         {
+//           height: headerHeight,
+//           color: tintColor || defaultHeaderTintColor,
+//           marginTop: 1.5 * insets.top,
+//         },
+//       ]}>
+//       {title}
+//     </TextView>
+//   );
+// };
 
 export const DefaultHeaderBackGround = (props: HeaderBackgroundProps) => {
   const {route} = props;
@@ -124,27 +123,27 @@ export const DefaultHeaderBackGround = (props: HeaderBackgroundProps) => {
   );
 };
 
-export const HeaderLeft = (props: HeaderLeftProps) => {
-  const {canGoBack, navigation} = props;
+// export const HeaderLeft = (props: HeaderLeftProps) => {
+//   const {canGoBack, navigation} = props;
 
-  const goBack = React.useCallback(() => {
-    canGoBack && navigation && navigation.goBack();
-  }, [navigation, canGoBack]);
+//   const goBack = React.useCallback(() => {
+//     canGoBack && navigation && navigation.goBack();
+//   }, [navigation, canGoBack]);
 
-  if (canGoBack) {
-    return (
-      <TouchableHighlight
-        style={styles.headerBack}
-        underlayColor={'transparent'}
-        onPress={goBack}>
-        <Icon
-          iconName={'arrow-back'}
-          iconSize={IconSizes.medium}
-          iconMargin={Spaces.xSmall}
-          iconColor={{color: Colors.white}}
-        />
-      </TouchableHighlight>
-    );
-  }
-  return null;
-};
+//   if (canGoBack) {
+//     return (
+//       <TouchableHighlight
+//         style={styles.headerBack}
+//         underlayColor={'transparent'}
+//         onPress={goBack}>
+//         <Icon
+//           iconName={'arrow-back'}
+//           iconSize={IconSizes.medium}
+//           iconMargin={Spaces.xSmall}
+//           iconColor={{color: Colors.white}}
+//         />
+//       </TouchableHighlight>
+//     );
+//   }
+//   return null;
+//};

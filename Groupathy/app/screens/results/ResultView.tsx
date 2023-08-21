@@ -23,7 +23,7 @@ import handlePress, {PressType} from './handlePress';
 import ContactTherapistList from '../../components/compounds/ContactTherapistList';
 import {RouteProp} from '@react-navigation/native';
 import {
-  HeaderHeightContext,
+  // HeaderHeightContext,
   StackNavigationProp,
 } from '@react-navigation/stack';
 import {getSpace, Spaces} from '../../styles/spaces';
@@ -31,7 +31,7 @@ import {Icon} from '../../components/atoms/Icon';
 import {IconSizes} from '../../styles/iconSizes';
 import {FontStyles, getName} from '../../styles/fonts/names';
 import Snackbar from 'react-native-snackbar';
-import ProgressBar from '../../components/commons/CircularProgress';
+//import ProgressBar from '../../components/commons/CircularProgress';
 
 const defaultStates = {
   resultData: [] as Array<ListDataViewModel>,
@@ -62,7 +62,7 @@ export type ResultViewProps = {
 };
 
 export default class ResultView extends PureComponent<ResultViewProps, State> {
-  resultData: ResultViewModel = {};
+  //resultData: ResultViewModel = {};
   constructor(props: ResultViewProps) {
     super(props);
     this.state = defaultStates;
@@ -214,16 +214,16 @@ export default class ResultView extends PureComponent<ResultViewProps, State> {
   renderProgressBar = () => {
     return (
       <View style={styles.progressBar}>
-        <ProgressBar />
+        {/* <ProgressBar /> */}
       </View>
     );
   };
 
   render() {
     return (
-      <HeaderHeightContext.Consumer>
-        {(headerHeight) => (
-          <View style={[styles.container, {paddingTop: headerHeight}]}>
+      //<HeaderHeightContext.Consumer>
+        // {() => (
+          <View style={styles.container}>
             {this.state.isLoading ? (
               this.renderProgressBar()
             ) : (
@@ -235,8 +235,8 @@ export default class ResultView extends PureComponent<ResultViewProps, State> {
               />
             )}
           </View>
-        )}
-      </HeaderHeightContext.Consumer>
+        // )}
+      //</HeaderHeightContext.Consumer>
     );
   }
 }

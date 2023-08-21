@@ -1,11 +1,11 @@
 import React, {createRef, PureComponent} from 'react';
-import {WebView} from 'react-native-webview';
+//import {WebView} from 'react-native-webview';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {getSpace, Spaces} from '../../styles/spaces';
 import {getColor, Colors} from '../../styles/colors';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import ProgressBar from '../../components/commons/CircularProgress';
+//import ProgressBar from '../../components/commons/CircularProgress';
 import {Button} from '../../components/molecules/Button';
 import {FontStyles} from '../../styles/fonts/names';
 import {Sizes} from '../../styles/fonts/sizes';
@@ -55,7 +55,7 @@ export type AppWebViewProps = {
 };
 
 class AppWebView extends PureComponent<AppWebViewProps, State> {
-  webView = createRef<WebView>();
+  //webView = createRef<WebView>();
   canGoBack = false;
   constructor(props: AppWebViewProps) {
     super(props);
@@ -68,7 +68,7 @@ class AppWebView extends PureComponent<AppWebViewProps, State> {
     });
   }
 
-  handleWebViewNavigationStateChange = (event) => {};
+  handleWebViewNavigationStateChange = (_event: any) => {};
 
   onLoadStart = () => {
     this.setState({isLoading: true});
@@ -81,7 +81,7 @@ class AppWebView extends PureComponent<AppWebViewProps, State> {
   renderProgressBar = () => {
     return (
       <View style={styles.progressBar}>
-        <ProgressBar />
+        {/* <ProgressBar /> */}
       </View>
     );
   };
@@ -97,7 +97,7 @@ class AppWebView extends PureComponent<AppWebViewProps, State> {
       Dimensions.get('window').width - 2 * getSpace(Spaces.xxLarge);
     return (
       <View style={styles.container}>
-        <WebView
+        {/* <WebView
           style={styles.webViewStyle}
           onLoadStart={() => this.onLoadStart()}
           onLoad={() => this.onLoadFinish()}
@@ -108,7 +108,7 @@ class AppWebView extends PureComponent<AppWebViewProps, State> {
             uri: this.state.webViewUrl || '',
           }}
           onNavigationStateChange={this.handleWebViewNavigationStateChange}
-        />
+        /> */}
         {this.state.isLoading ? (
           this.renderProgressBar()
         ) : (

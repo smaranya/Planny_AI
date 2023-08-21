@@ -1,5 +1,5 @@
 //Util funtions
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 /**
  * Returns the value of key within a object
@@ -25,7 +25,7 @@ export const checkValidEmail = (email?: string): boolean => {
 
 export const storeStringData = async (key: string, value: string) => {
   try {
-    await AsyncStorage.setItem(key, value);
+    // await AsyncStorage.setItem(key, value);
   } catch (e) {
     return null;
   }
@@ -34,7 +34,7 @@ export const storeStringData = async (key: string, value: string) => {
 export const storeObjectData = async (key: string, value: object) => {
   try {
     const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(key, jsonValue);
+    // await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
     return null;
   }
@@ -42,8 +42,8 @@ export const storeObjectData = async (key: string, value: object) => {
 
 export const getStringData = async (key: string) => {
   try {
-    const value = await AsyncStorage.getItem(key);
-    return value;
+    // const value = await AsyncStorage.getItem(key);
+    //return value;
   } catch (e) {
     return null;
   }
@@ -51,8 +51,8 @@ export const getStringData = async (key: string) => {
 
 export const getObjectData = async (key: string) => {
   try {
-    const jsonValue = await AsyncStorage.getItem(key);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    // const jsonValue = await AsyncStorage.getItem(key);
+    // return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     return null;
   }

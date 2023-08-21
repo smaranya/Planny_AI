@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {Image, StyleSheet, ImageStyle, StyleProp, Alert} from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+// import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {IconSizes, getIconSize} from '../../styles/iconSizes';
 import {getColor, ColorType} from '../../styles/colors';
 import {Spaces, getSpace} from '../../styles/spaces';
@@ -49,14 +49,14 @@ export const Icon: FunctionComponent<IconProps> = (props) => {
   const margin = getSpace(iconMargin);
 
   if (iconName) {
-    return (
-      <MaterialIcon
-        name={iconName}
-        size={size}
-        ref={iconRef}
-        style={[{color}, {margin}, style && style]}
-      />
-    );
+    // return (
+    //   // <MaterialIcon
+    //   //   name={iconName}
+    //   //   size={size}
+    //   //   ref={iconRef}
+    //   //   style={[{color}, {margin}, style && style]}
+    //   // />
+    // );
   }
 
   if (isUrl(iconSourceUri)) {
@@ -79,7 +79,7 @@ export const Icon: FunctionComponent<IconProps> = (props) => {
   } else if (iconSourceUri) {
     return (
       <Image
-        source={images[iconSourceUri]}
+        source={{uri: iconSourceUri}}
         ref={iconRef}
         style={[
           {
