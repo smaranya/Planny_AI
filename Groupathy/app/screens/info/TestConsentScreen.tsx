@@ -1,4 +1,4 @@
-import {StackNavigationProp, useHeaderHeight} from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {Button} from '../../components/molecules/Button';
 import {Colors, getColor} from '../../styles/colors';
 import {getSpace, Spaces} from '../../styles/spaces';
@@ -67,14 +67,14 @@ const TestConsentScreen: FunctionComponent<TestConsentScreenProps> = (
     navigation.pop(1);
   }, [navigation, eventData]);
 
-  const headerHeight = useHeaderHeight();
+  //const headerHeight = useHeaderHeight();
   const {width, height} = Dimensions.get('window');
   const containerStyle = [
     styles.container,
     {
       width: width,
       height: height,
-      paddingTop: headerHeight,
+      //paddingTop: headerHeight,
     },
   ];
 

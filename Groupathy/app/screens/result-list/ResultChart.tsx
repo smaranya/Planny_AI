@@ -1,12 +1,12 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, Dimensions, View} from 'react-native';
-import {LineChart, Grid, XAxis, YAxis} from 'react-native-svg-charts';
+// import {LineChart, Grid, XAxis, YAxis} from 'react-native-svg-charts';
 import {ResultChartData} from './ListViewModel';
 import {getSpace, Spaces} from '../../styles/spaces';
 import {getColor, Colors} from '../../styles/colors';
 import {FontStyles, getName} from '../../styles/fonts/names';
 import {Sizes, getSize} from '../../styles/fonts/sizes';
-import * as shape from 'd3-shape';
+// import * as shape from 'd3-shape';
 import {Circle} from 'react-native-svg';
 
 export type ResultChartProps = {
@@ -50,17 +50,17 @@ const createYAxisLabel = (chartData: ResultChartData) => {
     })) as Array<number>;
 };
 
-const ChartPoints = ({x, y, color, xAxisData, chartData}) =>
-  chartData.map((item, index) => (
-    <Circle
-      key={index}
-      cx={x(xAxisData[index])}
-      cy={y(item.value)}
-      r={6}
-      stroke={getColor({color: Colors.buttonFill})}
-      fill={getColor({color: Colors.buttonFill})}
-    />
-  ));
+// const ChartPoints = ({x, y, color, xAxisData, chartData}) =>
+//   chartData.map((item, index) => (
+//     <Circle
+//       key={index}
+//       cx={x(xAxisData[index])}
+//       cy={y(item.value)}
+//       r={6}
+//       stroke={getColor({color: Colors.buttonFill})}
+//       fill={getColor({color: Colors.buttonFill})}
+//     />
+//   ));
 
 const ResultChart: FunctionComponent<ResultChartProps> = (
   props: ResultChartProps,
@@ -90,7 +90,7 @@ const ResultChart: FunctionComponent<ResultChartProps> = (
   return chartData && chartData.length > 0 ? (
     <View style={styles.chartContainerStyle}>
       <View style={{flexDirection: 'row'}}>
-        <YAxis
+        {/* <YAxis
           style={styles.yAxisStyle}
           data={yAxisData}
           contentInset={contentInset}
@@ -142,7 +142,8 @@ const ResultChart: FunctionComponent<ResultChartProps> = (
           fontSize: getSize(Sizes.xSmall),
           fontFamily: getName(FontStyles.bold),
         }}
-      />
+      /> */}
+      </View>
     </View>
   ) : null;
 };

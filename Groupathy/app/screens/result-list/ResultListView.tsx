@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {fetchGroupAnalytics} from './api/ApiCalls';
-import {ResultListResponse} from './api/Models';
+import {ResultListResponse} from './api/models';
 import {
   ListViewModel,
   ListViewModelItem,
@@ -17,21 +17,20 @@ import ResultChart from './ResultChart';
 import {MainResultListView} from './MainResultListView';
 import ContactTherapistList from '../../components/compounds/ContactTherapistList';
 import {
-  HeaderHeightContext,
   StackNavigationProp,
 } from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import ProgressBar from '../../components/commons/CircularProgress';
+//import ProgressBar from '../../components/commons/CircularProgress';
 import {TextView} from '../../components/atoms/TextView';
 import {getSpace, Spaces} from '../../styles/spaces';
 import {Button} from '../../components/molecules/Button';
 import {Colors, getColor} from '../../styles/colors';
 import {FontStyles} from '../../styles/fonts/names';
 import {Sizes} from '../../styles/fonts/sizes';
-import navigateTo from '../../navigation/navigateTo';
+//import navigateTo from '../../navigation/navigateTo';
 import {NO_TEST_HISTORY} from '../../assets/stringLiterals';
 import {HEADER_HEIGHT} from '../../navigation/headerOptions';
-import {capitalizeFirstLetter} from '../../utils';
+//import {capitalizeFirstLetter} from '../../utils';
 
 const defaultStates = {
   resultData: [] as ListViewModel,
@@ -135,18 +134,18 @@ class ResultListView extends PureComponent<ResultViewProps, State> {
   };
 
   goToTakeTestPage = () => {
-    navigateTo({
-      navigation: this.props.navigation,
-      path: '/questionnaire/groups',
-      params: {
-        groupId: this.props.route.params?.groupId,
-        transparentHeader: true,
-        headerTitle: `${capitalizeFirstLetter(
-          this.props.route.params?.groupSubType,
-        )} Test`,
-      },
-      replace: true,
-    });
+    // navigateTo({
+    //   navigation: this.props.navigation,
+    //   path: '/questionnaire/groups',
+    //   params: {
+    //     groupId: this.props.route.params?.groupId,
+    //     transparentHeader: true,
+    //     headerTitle: `${capitalizeFirstLetter(
+    //       this.props.route.params?.groupSubType,
+    //     )} Test`,
+    //   },
+    //   replace: true,
+    // });
   };
 
   renderNoResultView = () => {
@@ -178,26 +177,27 @@ class ResultListView extends PureComponent<ResultViewProps, State> {
 
   render() {
     return (
-      <HeaderHeightContext.Consumer>
-        {(headerHeight) => (
-          <View style={[styles.container, {paddingTop: headerHeight}]}>
-            {this.state.resultData && this.state.resultData.length > 0 ? (
-              <FlatList
-                data={this.state.resultData}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={this.keyExtractor}
-                renderItem={this.renderItem}
-              />
-            ) : this.state.isDataLoaded ? (
-              this.renderNoResultView()
-            ) : (
-              <View style={styles.progressBar}>
-                <ProgressBar />
-              </View>
-            )}
-          </View>
-        )}
-      </HeaderHeightContext.Consumer>
+      <View></View>
+      // <HeaderHeightContext.Consumer>
+      //   {(headerHeight: any) => (
+      //     <View style={[styles.container, {paddingTop: headerHeight}]}>
+      //       {this.state.resultData && this.state.resultData.length > 0 ? (
+      //         <FlatList
+      //           data={this.state.resultData}
+      //           showsVerticalScrollIndicator={false}
+      //           keyExtractor={this.keyExtractor}
+      //           renderItem={this.renderItem}
+      //         />
+      //       ) : this.state.isDataLoaded ? (
+      //         this.renderNoResultView()
+      //       ) : (
+      //         <View style={styles.progressBar}>
+      //           <ProgressBar />
+      //         </View>
+      //       )}
+      //     </View>
+      //   )}
+      // </HeaderHeightContext.Consumer>
     );
   }
 }

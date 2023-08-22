@@ -26,7 +26,7 @@ export class APIService {
     this.addHeaders([
       {
         key: 'deviceId',
-        value: getUniqueId(),
+        value: 'hello',
       },
       {
         key: 'content-type',

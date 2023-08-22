@@ -9,6 +9,9 @@
  *
  */
 'use strict';
+
+import { View } from "react-native";
+
 const EdgeInsetsPropType = require('react-native/Libraries/StyleSheet/EdgeInsetsPropType');
 const ImageResizeMode = require('react-native/Libraries/Image/ImageResizeMode');
 const DeprecatedImageSourcePropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedImageSourcePropType');
@@ -28,11 +31,11 @@ const flattenStyle = require('react-native/Libraries/StyleSheet/flattenStyle');
 const ImageViewManager = NativeModules.ImageViewManager;
 
 /* Custom SDWebImage wrapper to add Myntra user agent and fade-in images on load. */
-const RNTNetworkImageView = requireNativeComponent(
-  'RNTNetworkImage',
-  ImageView,
-  cfg,
-);
+// const RNTNetworkImageView = requireNativeComponent(
+//   'RNTNetworkImage',
+//   ImageView,
+//   cfg,
+// );
 
 /**
  * A React component for displaying different types of images,
@@ -345,14 +348,17 @@ const ImageView = createReactClass({
     }
 
     return (
-      <RNTNetworkImageView
-        {...this.props}
-        style={style}
-        resizeMode={resizeMode}
-        tintColor={tintColor}
-        src={source.uri}
-        defaultImageSrc={defaultSource.uri}
-      />
+      // <RNTNetworkImageView
+      //   {...this.props}
+      //   style={style}
+      //   resizeMode={resizeMode}
+      //   tintColor={tintColor}
+      //   src={source.uri}
+      //   defaultImageSrc={defaultSource.uri}
+      // />
+      <View>
+        
+      </View>
     );
   },
 });

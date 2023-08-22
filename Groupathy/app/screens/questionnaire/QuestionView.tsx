@@ -14,7 +14,7 @@ import {
 } from './constants';
 import {TextView} from '../../components/atoms/TextView';
 import {
-  HeaderHeightContext,
+  //HeaderHeightContext,
   StackNavigationProp,
 } from '@react-navigation/stack';
 
@@ -311,25 +311,28 @@ class QuestionView extends PureComponent<QuestionViewProps, State> {
   render() {
     const {width} = Dimensions.get('window');
     return this.state.questionData && this.state.answersArray ? (
-      <HeaderHeightContext.Consumer>
-        {(headerHeight) => (
-          <View
-            style={[
-              styles.container,
-              {width: width, paddingTop: headerHeight && headerHeight / 10},
-            ]}>
-            <FlatList
-              showsVerticalScrollIndicator={true}
-              style={[styles.listContainer, {width: width}]}
-              data={this.state.answersArray}
-              keyExtractor={this.keyExtractor}
-              ListHeaderComponent={this.renderHeader}
-              renderItem={this.renderAnswer}
-            />
-            {this.renderFab()}
-          </View>
-        )}
-      </HeaderHeightContext.Consumer>
+      <View>
+        
+      </View>
+      // <HeaderHeightContext.Consumer>
+      //   {(headerHeight) => (
+      //     <View
+      //       style={[
+      //         styles.container,
+      //         {width: width, paddingTop: headerHeight && headerHeight / 10},
+      //       ]}>
+      //       <FlatList
+      //         showsVerticalScrollIndicator={true}
+      //         style={[styles.listContainer, {width: width}]}
+      //         data={this.state.answersArray}
+      //         keyExtractor={this.keyExtractor}
+      //         ListHeaderComponent={this.renderHeader}
+      //         renderItem={this.renderAnswer}
+      //       />
+      //       {this.renderFab()}
+      //     </View>
+      //   )}
+      // </HeaderHeightContext.Consumer>
     ) : null;
   }
 }

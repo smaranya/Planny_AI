@@ -1,4 +1,4 @@
-import navigateTo from '../../navigation/navigateTo';
+//import navigateTo from '../../navigation/navigateTo';
 import {PressProps} from '../../typings/global';
 
 export enum PressType {
@@ -14,23 +14,23 @@ const handlePress = ({action, data}: PressProps) => {
   switch (action) {
     case PressType.REPLACE:
       if (navigation && path) {
-        navigateTo({
-          navigation,
-          path,
-          params: extraData || {},
-          replace: true,
-        });
+        // navigateTo({
+        //   navigation,
+        //   path,
+        //   params: extraData || {},
+        //   replace: true,
+        // });
       }
       break;
     case PressType.NAVIGATE:
     default:
       if (navigation && path) {
-        navigateTo({
-          navigation,
-          path,
-          params: extraData || {},
-          replace: false,
-        });
+        // navigateTo({
+        //   navigation,
+        //   path,
+        //   params: extraData || {},
+        //   replace: false,
+        // });
       }
       break;
   }

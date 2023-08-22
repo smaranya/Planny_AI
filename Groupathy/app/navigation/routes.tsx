@@ -5,9 +5,10 @@ import Questionairre from '../screens/questionnaire/Questionairre';
 import IllnessGroups from '../screens/illness/IllnessGroups';
 import ResultView from '../screens/results/ResultView';
 import ResultListView from '../screens/result-list/ResultListView';
-import AppWebView from '../screens/webview/WebView';
+//import AppWebView from '../screens/webview/WebView';
 import IllnessDetail from '../screens/illnessDetail';
-import Onboarding from '../screens/onboarding/Onboarding';
+import HomeScreen from '../screens/home/HomeScreen';
+//import Onboarding from '../screens/onboarding/Onboarding';
 import TestConsentScreen from '../screens/info/TestConsentScreen';
 import InfoScreen from '../screens/info/InfoScreen';
 
@@ -52,7 +53,7 @@ const appRoutes = [
   {
     name: RouteName.HOME,
     regexs: ['/illness/groups'],
-    screen: IllnessGroups,
+    screen: HomeScreen,
   },
   {
     name: RouteName.ILLNESS_DETAIL,
@@ -78,18 +79,18 @@ const appRoutes = [
     screen: ResultListView,
     options: {headerTransparent: true},
   },
-  {
-    name: RouteName.WEBVIEW,
-    regexs: ['/webview'],
-    screen: AppWebView,
-    options: {headerShown: false},
-  },
-  {
-    name: RouteName.ONBOARDING,
-    regexs: ['/onboarding'],
-    screen: Onboarding,
-    options: {headerShown: false},
-  },
+  // {
+  //   name: RouteName.WEBVIEW,
+  //   regexs: ['/webview'],
+  //   screen: AppWebView,
+  //   options: {headerShown: false},
+  // },
+  // {
+  //   name: RouteName.ONBOARDING,
+  //   regexs: ['/onboarding'],
+  //   screen: Onboarding,
+  //   options: {headerShown: false},
+  // },
   {
     name: RouteName.TEST_CONSENT_SCREEN,
     regexs: ['/test/consent'],

@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, ViewPropTypes} from 'react-native';
-import CircularProgressBar from './CircularProgressBar';
+import {StyleSheet, View} from 'react-native';
+// import { ViewPropTypes } from 'deprecated-react-native-prop-types';
+// import CircularProgressBar from './CircularProgressBar';
 import {getColor, Colors} from '../../../styles/colors';
 
 const progressBarColors = [
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
 
 const ProgressBar = ({style}) => (
   <View style={[styles.container, style]}>
-    <CircularProgressBar
+    {/* <CircularProgressBar
       colors={progressBarColors}
       maxSweepAngle={300}
       minSweepAngle={20}
@@ -38,10 +39,10 @@ const ProgressBar = ({style}) => (
       strokeWidth={5}
       style={styles.progressBar}
       sweepSpeed={1}
-    />
+    /> */}
   </View>
 );
 
-ProgressBar.propTypes = {style: ViewPropTypes.style};
+// ProgressBar.propTypes = {style: ViewPropTypes.style};
 
 export default ProgressBar;

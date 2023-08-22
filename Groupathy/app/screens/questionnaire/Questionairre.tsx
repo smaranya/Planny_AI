@@ -36,7 +36,7 @@ import {getSpace, Spaces} from '../../styles/spaces';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {Icon} from '../../components/atoms/Icon';
 import {IconSizes} from '../../styles/iconSizes';
-import ProgressBar from '../../components/commons/CircularProgress';
+//import ProgressBar from '../../components/commons/CircularProgress';
 
 const defaultStates = {
   questionData: [] as Array<QuestionsResponse>,
@@ -278,7 +278,7 @@ export class Questionairre extends PureComponent<
   renderProgressBar = () => {
     return (
       <View style={styles.progressBar}>
-        <ProgressBar />
+        {/* <ProgressBar /> */}
       </View>
     );
   };

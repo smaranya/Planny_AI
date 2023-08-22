@@ -5,8 +5,7 @@ index 0f85022..e2dede9 100644
 @@ -1,6 +1,6 @@
  import PropTypes from 'prop-types';
  import React, { PureComponent } from 'react';
--import { Animated } from 'react-native';
-+import { Animated, Text } from 'react-native';
+ import { Animated, Text } from 'react-native';
  
  import styles from './styles';
  
@@ -14,8 +13,7 @@ index 0f85022..e2dede9 100644
  
    static propTypes = {
      numberOfLines: PropTypes.number,
--    style: Animated.Text.propTypes.style,
-+    style: Text.propType,
+     style: Text.propType,
  
      color: PropTypes.string.isRequired,
      fontSize: PropTypes.number.isRequired,
@@ -26,8 +24,7 @@ index 6060f9f..98b3c64 100644
 @@ -1,6 +1,6 @@
  import PropTypes from 'prop-types';
  import React, { PureComponent } from 'react';
--import { Animated } from 'react-native';
-+import { Animated, Text } from 'react-native';
+ import { Animated, Text } from 'react-native';
  
  import styles from './styles';
  
@@ -35,8 +32,7 @@ index 6060f9f..98b3c64 100644
  
      disabled: PropTypes.bool,
  
--    style: Animated.Text.propTypes.style,
-+    style: Text.propType,
+    style: Text.propType,
  
      baseColor: PropTypes.string,
      errorColor: PropTypes.string,
@@ -47,8 +43,7 @@ index 82eaf03..2b9038d 100644
 @@ -1,6 +1,6 @@
  import PropTypes from 'prop-types';
  import React, { PureComponent } from 'react';
--import { Animated } from 'react-native';
-+import { Animated, Text } from 'react-native';
+ import { Animated, Text } from 'react-native';
  
  import styles from './styles';
  
@@ -56,8 +51,7 @@ index 82eaf03..2b9038d 100644
        y1: PropTypes.number,
      }),
  
--    style: Animated.Text.propTypes.style,
-+    style: Text.propType,
+    style: Text.propType,
      label: PropTypes.string,
    };
  

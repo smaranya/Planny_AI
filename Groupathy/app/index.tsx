@@ -3,17 +3,19 @@ import AppNavigator from './navigation/MainAppNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import remoteConfig from '@react-native-firebase/remote-config';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
+//import firebase from '@react-native-firebase/app';
 
 const DEAFULT_SPLASH_UP_TIME = 1000;
 
 class App extends Component {
+  
   timeOutId: any;
   async componentDidMount() {
     await remoteConfig().setConfigSettings({
-      minimumFetchIntervalMillis: 900000,
+      minimumFetchIntervalMillis: 10000,
     });
     NetInfo.fetch().then((state: NetInfoState) => {
-      console.log(state);
+      console.log("This is the state" + state);
       if (state.isConnected) {
         this.fetchRemoteConfig(state);
       } else {
@@ -39,11 +41,11 @@ class App extends Component {
 
   removeSplash = () => {
     SplashScreen.hide();
-    this.timeOutId && clearInterval(this.timeOutId);
+    this.timeOutId && clearTimeout(this.timeOutId); // Use clearTimeout instead of clearInterval
   };
 
   componentWillUnmount() {
-    this.timeOutId && clearInterval(this.timeOutId);
+    this.timeOutId && clearTimeout(this.timeOutId);
   }
 
   render() {
