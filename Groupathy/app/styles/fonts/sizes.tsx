@@ -11,6 +11,11 @@ export enum Sizes {
   xxLarge,
   xxxLarge,
   xxxxLarge,
+  huge,
+  mega,
+  xMega,
+  xxMega,
+  xxxMega
 }
 
 const sizeValues = {
@@ -26,6 +31,11 @@ const sizeValues = {
   [Sizes.xxLarge]: 32,
   [Sizes.xxxLarge]: 40,
   [Sizes.xxxxLarge]: 80,
+  [Sizes.huge]: 200,
+  [Sizes.mega]: 100,
+  [Sizes.xMega]: 120,
+  [Sizes.xxMega]: 140,
+  [Sizes.xxxMega]: 180
 };
 
 const defaultSize = Sizes.medium;
