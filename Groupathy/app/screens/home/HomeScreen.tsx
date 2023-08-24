@@ -10,7 +10,8 @@ import { Icon } from '../../components/atoms/Icon';
 
 const HomeScreen = () => {
   const homeScreenImage = require('../../assets/homeScreen.png');
-    
+  
+  //Category Items
   interface Item {
     id: string;
     image: any;
