@@ -32,7 +32,8 @@ const HomeScreen = () => {
     onPress={() => console.log("Image Pressed!")}>
       <View style={styles.gridItem}>
       <Image source={item.image} style={styles.gridImage} />
-      <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}>{item.description}</TextView>
+      <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}
+      fontFamily={FontStyles.blockBold}>{item.description}</TextView>
       </View>
     </TouchableOpacity>
   );
@@ -44,7 +45,7 @@ const HomeScreen = () => {
           <TextView
             style={[styles.logoText, { fontSize: getSize(Sizes.large)}]}
             textColor={{color: Colors.red}}
-            fontFamily={FontStyles.bold}>
+            fontFamily={FontStyles.blockBold}>
             LOGO
           </TextView>
         </View>
@@ -52,7 +53,7 @@ const HomeScreen = () => {
           <TextView 
           style={[styles.username, {fontSize: getSize(Sizes.large)}]}
           textColor={{color: Colors.black}}
-          fontFamily={FontStyles.bold}>
+          fontFamily={FontStyles.blockReg}>
             Hello, User</TextView>
           <TouchableOpacity onPress={() => console.log("Menu Pressed!")}>
             <Icon 
@@ -67,7 +68,7 @@ const HomeScreen = () => {
         <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
         <View style={styles.textContainer}>
           <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.large)}]}
+            style={[styles.imgText, {fontSize: getSize(Sizes.largeMedPlus)}]}
             textColor={{ color: Colors.black }}
             fontFamily={FontStyles.bold}>
             Do Events Yourself
@@ -75,7 +76,7 @@ const HomeScreen = () => {
           <TextView
             style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
             textColor={{ color: Colors.black }}
-            fontFamily={FontStyles.regular}>
+            fontFamily={FontStyles.blockReg}>
             Some Details about the Event
           </TextView>
         </View>
@@ -83,7 +84,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <View style={styles.mainTextContainer}>
           <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.large)}]}
+            style={[styles.imgText, {fontSize: getSize(Sizes.largePlus)}]}
             textColor={{ color: Colors.black }}
             fontFamily={FontStyles.bold}>
             Do Events Yourself
@@ -91,7 +92,7 @@ const HomeScreen = () => {
           <TextView
             style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
             textColor={{ color: Colors.grey }}
-            fontFamily={FontStyles.bold}>
+            fontFamily={FontStyles.blockBold}>
             Some Details about the Event
           </TextView>
         </View>

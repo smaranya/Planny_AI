@@ -1,19 +1,17 @@
 export enum FontStyles {
   regular = 1,
-  medium,
+  blockReg,
   bold,
   italic,
-  italicMedium,
-  italicBold,
+  blockBold
 }
 
 const names = {
-  [FontStyles.regular]: 'SourceSansPro-Regular',
-  [FontStyles.bold]: 'SourceSansPro-Bold',
-  [FontStyles.medium]: 'SourceSansPro-SemiBold',
-  [FontStyles.italic]: 'SourceSansPro-Italic',
-  [FontStyles.italicMedium]: 'SourceSansPro-SemiBoldItalic',
-  [FontStyles.italicBold]: 'SourceSansPro-BoldItalic',
+  [FontStyles.regular]: 'PlayfairDisplay-Regular',
+  [FontStyles.bold]: 'PlayfairDisplay-Bold',
+  [FontStyles.blockReg]: 'Inter-Regular',
+  [FontStyles.italic]: 'PlayfairDisplay-Italic',
+  [FontStyles.blockBold]: 'Inter-SemiBold',
 };
 
 const defaultName = FontStyles.regular;
