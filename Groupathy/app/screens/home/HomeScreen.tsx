@@ -1,15 +1,32 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, FlatList, Text, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, ImageBackground, FlatList, Text, Image, Dimensions, StatusBar } from 'react-native';
 import { TextView } from '../../components/atoms/TextView';
-import { Colors } from '../../styles/colors';
+import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { getSpace, Spaces } from '../../styles/spaces';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from '../../components/atoms/Icon';
+import navigateTo from '../../navigation/navigateTo';
+import { NavigationProp } from '@react-navigation/native';
 
-const HomeScreen = () => {
+type MyComponentProps = {
+  navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
+};
+
+const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   const homeScreenImage = require('../../assets/homeScreen.png');
+
+  const handleNavigate = () => {
+    navigateTo({
+      navigation,
+      path: '/wedding', // Replace with the desired path
+      params: {
+        // Include any additional parameters you need
+      },
+      replace: false, // Set to true if you want to use replace navigation
+    });
+  };
   
   interface Item {
     id: string;
@@ -29,7 +46,7 @@ const HomeScreen = () => {
   const renderItem = ({item}: {item: Item}) => (
     <TouchableOpacity 
     style={styles.touchableCategory}
-    onPress={() => console.log("Image Pressed!")}>
+    onPress={handleNavigate}>
       <View style={styles.gridItem}>
       <Image source={item.image} style={styles.gridImage} />
       <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}
@@ -64,7 +81,7 @@ const HomeScreen = () => {
         </View>
         <TouchableOpacity 
             style = {styles.touchable}
-            onPress={()=>{console.log("Image Pressed!")}}>
+            onPress={()=>{console.log("Event Pressed!")}}>
         <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
         <View style={styles.textContainer}>
           <TextView

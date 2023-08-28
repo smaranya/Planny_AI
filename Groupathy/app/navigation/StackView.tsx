@@ -17,6 +17,7 @@ const StackView = (props: StackViewProps) => {
   return (
     <Stack.Navigator
       screenOptions={({route, navigation}) => ({
+        headerShown: false
         // headerTitle: (headerTitleProps) => (
         //   // <HeaderTitle
         //   //   {...headerTitleProps}
@@ -24,12 +25,12 @@ const StackView = (props: StackViewProps) => {
         //   //   navigation={navigation}
         //   // />
         // ),
-        headerTitleAlign: 'center',
-        headerBackTitle: undefined,
+        // headerTitleAlign: 'center',
+        // headerBackTitle: undefined,
         // headerBackground: (headerBackgroundProps) => (
         //   // <HeaderTitle {...headerBackgroundProps} route={route} />
         // ),
-        headerTintColor: getColor({color: Colors.white}),
+        // headerTintColor: getColor({color: Colors.white}),
         // headerLeft: (headerLeftProps) => (
         //   <HeaderLeft navigation={navigation} {...headerLeftProps} />
         // ),

@@ -4,11 +4,15 @@ import AppStackView, {StackViewProps} from './StackView';
 import RouteName from './RouteName';
 import routes from './routes';
 import {screenForPath} from './navigateTo';
+import { Colors, getColor } from '../styles/colors';
+import { StatusBar } from 'react-native';
 
 type NavigatorProps = {
   initialUrl?: string;
   initialParams?: any;
 };
+
+const statusBarColor = getColor({color: Colors.red});
 
 const AppNavigator = (props: NavigatorProps) => {
   const {name = RouteName.HOME, params = {}} =
@@ -19,7 +23,10 @@ const AppNavigator = (props: NavigatorProps) => {
     initialParams: {...initialParamsFromApp, ...params},
   };
   const NavigationComponent = AppStackView(stackViewProps);
-  return <NavigationContainer>{NavigationComponent}</NavigationContainer>;
+  return <NavigationContainer>
+    <StatusBar backgroundColor = {statusBarColor} barStyle="light-content" />
+    {NavigationComponent}
+    </NavigationContainer>;
 };
 
 export default AppNavigator;
