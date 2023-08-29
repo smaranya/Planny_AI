@@ -52,7 +52,7 @@ const appRoutes = [
   },
   {
     name: RouteName.HOME,
-    regexs: ['/illness/groups'],
+    regexs: ['/home'],
     screen: HomeScreen,
   },
   {
