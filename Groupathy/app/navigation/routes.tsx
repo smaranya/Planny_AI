@@ -11,6 +11,7 @@ import HomeScreen from '../screens/home/HomeScreen';
 //import Onboarding from '../screens/onboarding/Onboarding';
 import TestConsentScreen from '../screens/info/TestConsentScreen';
 import InfoScreen from '../screens/info/InfoScreen';
+import WeddingPlan from '../screens/wedding/WeddingPlan';
 
 export type Route = {
   name: string;
@@ -54,6 +55,11 @@ const appRoutes = [
     name: RouteName.HOME,
     regexs: ['/home'],
     screen: HomeScreen,
+  },
+  {
+    name: RouteName.WEDDING_PLAN,
+    regexs: ['/wedding'],
+    screen: WeddingPlan
   },
   {
     name: RouteName.ILLNESS_DETAIL,

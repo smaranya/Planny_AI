@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
   TouchableHighlight,
   TouchableNativeFeedback,
   Platform,
@@ -13,68 +12,55 @@ import {
 } from 'react-native';
 import { Colors, ColorType, getColor } from '../../styles/colors';
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
 export type Touchables =
   | 'nativeFeedBack'
   | 'highLight'
   | 'opacity'
   | 'withoutFeedBack';
 
-const TouchablesMap = {
+const TouchablesMap: Record<Touchables, React.ComponentType<any>> = {
   nativeFeedBack: TouchableNativeFeedback,
   highLight: TouchableHighlight,
   opacity: TouchableOpacity,
   withoutFeedBack: TouchableWithoutFeedback,
 };
 
-type CommonProps = TouchableHighlightProps & TouchableNativeFeedbackProps;
-const defaultTouchable = Platform.OS === 'ios' ? 'highLight' : 'nativeFeedBack';
+type CommonProps = TouchableHighlightProps &
+  TouchableNativeFeedbackProps &
+  TouchableOpacity['props'] &
+  TouchableWithoutFeedback['props'];
 
-const defaultProps = {
-  touchable: defaultTouchable as Touchables,
-  underlayColorType: {
-    color: Colors.white,
-    opacity: 0,
-  } as ColorType,
-};
-
-export type TouchableProps = {
+export type TouchableComponentProps = {
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   touchable?: Touchables;
-} & CommonProps &
-  Partial<typeof defaultProps>;
+  underlayColorType?: ColorType;
+} & CommonProps;
 
-const TouchableComponent: React.FC<TouchableProps> = (props) => {
-  const { style, touchable, underlayColorType, children, ...rest } = props;
+const TouchableComponent: React.FC<TouchableComponentProps> = (props) => {
+  const {
+    style,
+    touchable = Platform.OS === 'ios' ? 'highLight' : 'nativeFeedBack',
+    underlayColorType = {
+      color: Colors.white,
+      opacity: 0,
+    },
+    children,
+    ...rest
+  } = props;
+
+  const Touchable = TouchablesMap[touchable];
   const buttonUnderlayColor = getColor(underlayColorType);
-  const Touchable = getTouchable(touchable || defaultTouchable);
+
   return (
-    <TouchableComponent
-      style={[styles.container, style]}
+    <Touchable
+      style={style}
       underlayColor={buttonUnderlayColor}
       {...rest}
     >
       {children}
-    </TouchableComponent>
+    </Touchable>
   );
-};
-
-TouchableComponent.defaultProps = defaultProps;
-
-const getTouchable = (touchable?: Touchables) => {
-  if (!touchable) touchable = defaultTouchable;
-  touchable =
-    touchable === 'nativeFeedBack' && Platform.OS === 'ios'
-      ? 'highLight'
-      : touchable;
-  return TouchablesMap[touchable];
 };
 
 export default TouchableComponent;
