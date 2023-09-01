@@ -7,26 +7,14 @@ import { FontStyles } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
 import { NavigationProp } from '@react-navigation/native';
-import navigateTo from '../../navigation/navigateTo';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
+const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
   
-  const handleNavigate = () => {
-    navigateTo({
-      navigation,
-      path: '/wedding/date', // Replace with the desired path
-      params: {
-        // Include any additional parameters you need
-      },
-      replace: false, // Set to true if you want to use replace navigation
-    });
-  };
-
   return (
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>
@@ -41,7 +29,7 @@ const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
             </View>
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
-                Tell us who you are
+                Which city is the wedding in?
                 </TextView>
             </View>
             <View style={styles.choices}>
@@ -49,33 +37,54 @@ const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
                 style={styles.button}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Bride'
+                text='Mumbai'
             />
             <Button
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Groom'
+                text='Bangalore'
             />
             <Button
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                }}
+                textProps={{
+                  textColor: {color: Colors.black},
+                  fontFamily: FontStyles.blockBold,
+                  fontSize: Sizes.large,
+                }}
+                text='Pune'
+            />
+            <Button
+                style={[styles.button]}
+                touchableProps={{
+                    touchable: 'highLight',
+                }}
+                textProps={{
+                  textColor: {color: Colors.black},
+                  fontFamily: FontStyles.blockBold,
+                  fontSize: Sizes.large,
+                }}
+                text='Delhi'
+            />
+            <Button
+                style={[styles.button]}
+                touchableProps={{
+                    touchable: 'highLight',
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -118,7 +127,7 @@ const styles = StyleSheet.create({
     inner: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
+        width: '60%',
         paddingVertical: getSpace(Spaces.xLarge)
     },
     choiceText: {
@@ -127,6 +136,8 @@ const styles = StyleSheet.create({
     },
     choices: {
         flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
     },
     button: {
         backgroundColor: getColor({color: Colors.white}),
@@ -135,8 +146,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: getColor({color: Colors.grey}),
         borderWidth: 1,
-        marginHorizontal: getSpace(Spaces.small),
+        margin: getSpace(Spaces.small),
     },
 })
 
-export default WeddingRole;
+export default WeddingCity;

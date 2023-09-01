@@ -1,25 +1,25 @@
 import { TextView } from '../../components/atoms/TextView';
 import React from 'react'
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
+import { Dimensions, ImageBackground, StyleSheet, TextInput, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
-import { FontStyles } from '../../styles/fonts/names';
+import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
-import { Button } from '../../components/molecules/Button';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
+import { Button } from '../../components/molecules/Button';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
+const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
   
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/wedding/date', // Replace with the desired path
+      path: '/wedding/city', // Replace with the desired path
       params: {
         // Include any additional parameters you need
       },
@@ -41,10 +41,16 @@ const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
             </View>
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
-                Tell us who you are
+                Do you have a wedding date?
                 </TextView>
             </View>
-            <View style={styles.choices}>
+            <View style={styles.textField}>
+                <TextInput 
+                  placeholder='DD/MM/YYYY'
+                  placeholderTextColor={getColor({color: Colors.grey})}
+                  style={styles.input}
+                />
+            </View>
             <Button
                 style={styles.button}
                 touchableProps={{
@@ -56,35 +62,8 @@ const WeddingRole: React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Bride'
+                text='Set Date'
             />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: handleNavigate,
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                }}
-                text='Groom'
-            />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: handleNavigate,
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                }}
-                text='Other'
-            />
-            </View>
             </View>
         </ImageBackground>
     </View>
@@ -118,15 +97,27 @@ const styles = StyleSheet.create({
     inner: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '50%',
+        width: '60%',
         paddingVertical: getSpace(Spaces.xLarge)
     },
     choiceText: {
         fontSize: getSize(Sizes.xxLarge),
         textAlign: 'center',
     },
-    choices: {
+    textField: {
+        width: '80%',
+        backgroundColor: getColor({color: Colors.white}),
+        borderRadius: 10,
+        paddingHorizontal: getSpace(Spaces.medium),
+        marginVertical: getSpace(Spaces.small),
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    input: {
+        fontFamily: getName(FontStyles.blockBold),
+        width: '100%',
+        textAlign: 'center'
     },
     button: {
         backgroundColor: getColor({color: Colors.white}),
@@ -135,8 +126,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: getColor({color: Colors.grey}),
         borderWidth: 1,
-        marginHorizontal: getSpace(Spaces.small),
+        marginVertical: getSpace(Spaces.medium),
     },
 })
 
-export default WeddingRole;
+export default WeddingDate;
