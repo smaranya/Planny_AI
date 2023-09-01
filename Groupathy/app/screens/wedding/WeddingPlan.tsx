@@ -8,12 +8,29 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { Icon } from '../../components/atoms/Icon';
 import { Button } from '../../components/molecules/Button';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
+import { NavigationProp } from '@react-navigation/native';
+import navigateTo from '../../navigation/navigateTo';
 
-const WeddingPlan = () => {
+type MyComponentProps = {
+  navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
+};
+
+const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/weddingplanbg.png');
 
   const hideKeyboard = () => {
     Keyboard.dismiss();
+  };
+
+  const handleNavigate = () => {
+    navigateTo({
+      navigation,
+      path: '/wedding/role', // Replace with the desired path
+      params: {
+        // Include any additional parameters you need
+      },
+      replace: false, // Set to true if you want to use replace navigation
+    });
   };
   
   return (
@@ -76,7 +93,7 @@ const WeddingPlan = () => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    disabled: false,
+                    onPress: handleNavigate,
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
