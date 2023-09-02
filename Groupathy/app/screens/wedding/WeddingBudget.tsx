@@ -13,7 +13,7 @@ type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
+const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
   
   const handleNavigate = () => {
@@ -26,7 +26,7 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
       replace: false, // Set to true if you want to use replace navigation
     });
   };
-  
+
   return (
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>
@@ -41,7 +41,7 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
             </View>
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
-                Which city is the wedding in?
+                Budget in Mind?
                 </TextView>
             </View>
             <View style={styles.choices}>
@@ -56,7 +56,7 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Mumbai'
+                text='15 Lakhs'
             />
             <Button
                 style={[styles.button]}
@@ -69,7 +69,7 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Bangalore'
+                text='20 Lakhs'
             />
             <Button
                 style={[styles.button]}
@@ -82,33 +82,7 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Pune'
-            />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: handleNavigate,
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                }}
-                text='Delhi'
-            />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: handleNavigate,
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                }}
-                text='Other'
+                text='25 Lakhs'
             />
             </View>
             </View>
@@ -144,7 +118,7 @@ const styles = StyleSheet.create({
     inner: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '60%',
+        width: '50%',
         paddingVertical: getSpace(Spaces.xLarge)
     },
     choiceText: {
@@ -153,8 +127,6 @@ const styles = StyleSheet.create({
     },
     choices: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
     },
     button: {
         backgroundColor: getColor({color: Colors.white}),
@@ -163,8 +135,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: getColor({color: Colors.grey}),
         borderWidth: 1,
-        margin: getSpace(Spaces.small),
+        marginHorizontal: getSpace(Spaces.small),
     },
 })
 
-export default WeddingCity;
+export default WeddingBudget;

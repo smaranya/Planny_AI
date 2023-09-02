@@ -15,6 +15,7 @@ import WeddingPlan from '../screens/wedding/WeddingPlan';
 import WeddingRole from '../screens/wedding/WeddingRole';
 import WeddingDate from '../screens/wedding/WeddingDate';
 import WeddingCity from '../screens/wedding/WeddingCity';
+import WeddingBudget from '../screens/wedding/WeddingBudget';
 
 export type Route = {
   name: string;
@@ -78,6 +79,11 @@ const appRoutes = [
     name: RouteName.WEDDING_CITY,
     regexs:['/wedding/city'],
     screen: WeddingCity
+  },
+  {
+    name: RouteName.WEDDING_BUDGET,
+    regexs:['/wedding/budget'],
+    screen: WeddingBudget
   },
   {
     name: RouteName.ILLNESS_DETAIL,
