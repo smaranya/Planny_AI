@@ -1,10 +1,11 @@
 export enum GetEndpoints {
-  ILLNESS_GROUP = 'patient/groups/',
-  ILLNESS_SUBGROUP = 'groupsubtype/',
-  GROUP_QUESTIONNAIRE = 'group/questionnaire',
-  USER_ANALYTICS = 'user/analytics',
-  ONBOARDING_QUESTIONS = 'intialtnc/',
-  SUICIDE_CHECK = 'suicidechecknote/',
+    ILLNESS_GROUP = 'patient/groups/',
+    ILLNESS_SUBGROUP = 'groupsubtype/',
+    GROUP_QUESTIONNAIRE = 'group/questionnaire',
+    USER_ANALYTICS = 'user/analytics',
+    ONBOARDING_QUESTIONS = 'intialtnc/',
+    SUICIDE_CHECK = 'suicidechecknote/',
+    DASHBOARD = "api/plans/"
 }
 
 export enum PostEndpoints {
@@ -31,6 +32,8 @@ export enum HTTP_METHODS {
 
 export enum Headers {
   DEVICE_ID = 'device-id',
+  IP_ADDRESS = '192.168.1.14',
+  PORT_NUMBER= '8000'
 }
 
 export enum QueryParams {

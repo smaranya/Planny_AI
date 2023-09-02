@@ -1,20 +1,34 @@
 import { TextView } from '../../components/atoms/TextView';
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
-
+interface Params {
+    name: string;
+    eventName: string;
+    formData: FormData;
+    selectedRole: string;
+  }
+  
+  interface FormData {
+    guestCount: string;
+    location: string;
+    date: string;
+    budget: string;
+  }
 const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
-  
+  const route = useRoute();
+  const { formData,name,eventName,selectedRole } = route.params as Params;
+  const [location, setLocation] = useState(formData.location);
   return (
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>

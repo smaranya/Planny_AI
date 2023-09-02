@@ -1,12 +1,12 @@
 import APIService from './ApiService';
 import {ApiMethod, ApiHeader, QueryParam} from './types';
-import {HTTP_CODES} from './constants';
+import {HTTP_CODES,Headers} from './constants';
 import {getErrorData, createQueryParamsString} from './utils';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
-export const baseWebUrl = 'https://api.groupathy.com/grouptherapy';
+export const baseWebUrl = `http://${Headers.IP_ADDRESS}:${Headers.PORT_NUMBER}/`;
 
-const baseUrl = 'https://api.groupathy.com/api/';
+const baseUrl = `http://${Headers.IP_ADDRESS}:${Headers.PORT_NUMBER}/`;
 
 const apiService = new APIService();
 const TRANSFORM_RESPONSE = '_transform=true';
