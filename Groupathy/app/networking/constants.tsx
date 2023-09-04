@@ -5,7 +5,7 @@ export enum GetEndpoints {
     USER_ANALYTICS = 'user/analytics',
     ONBOARDING_QUESTIONS = 'intialtnc/',
     SUICIDE_CHECK = 'suicidechecknote/',
-    DASHBOARD = "api/plans/"
+    DASHBOARD = "api/plan/categories/"
 }
 
 export enum PostEndpoints {
@@ -32,7 +32,7 @@ export enum HTTP_METHODS {
 
 export enum Headers {
   DEVICE_ID = 'device-id',
-  IP_ADDRESS = '192.168.1.14',
+  IP_ADDRESS = '127.0.0.1',
   PORT_NUMBER= '8000'
 }
 

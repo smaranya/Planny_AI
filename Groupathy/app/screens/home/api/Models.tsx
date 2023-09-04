@@ -1,11 +1,11 @@
-export type HomeScreenResponse = Array<UserData>;
+export type HomeScreenResponse = UserData;
 
 export type UserData = {
     name: string;
-    categories: Array<Category>;
+    results: Array<Category>;
 };
 
 export type Category = {
-    imageUrl: string;
+    image: string;
     description: string;
 };

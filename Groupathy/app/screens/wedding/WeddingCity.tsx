@@ -29,6 +29,8 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
   const route = useRoute();
   const { formData,name,eventName,selectedRole } = route.params as Params;
   const [location, setLocation] = useState(formData.location);
+  console.log(location);
+  console.log(formData);
   return (
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>

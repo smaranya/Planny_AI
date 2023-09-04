@@ -35,10 +35,11 @@ const WeddingPlan: React.FC<MyComponentProps> = ({ navigation }) => {
     date: '',
     budget: '',
   });
-
-  const background = require('../../assets/weddingplanbg.png');
   const route = useRoute();
-  const { name, eventName } = route.params as Params
+  const { name, eventName } = route.params as Params;
+  
+  const background = require('../../assets/weddingplanbg.png');
+  
 
   const hideKeyboard = () => {
     Keyboard.dismiss();

@@ -18,12 +18,12 @@ type MyComponentProps = {
 const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   const homeScreenImage = require('../../assets/homeScreen.png');
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState<HomeScreenResponse | null>(null);
+  const [userData, setUserData] = useState<HomeScreenResponse | null>();
   var eventName = '';
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchUserData();
+        const data =  await fetchUserData();
         setUserData(data);
         setIsLoading(false);
       } catch (error) {
@@ -33,14 +33,14 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
 
     fetchData();
   }, []);
-  console.log(userData);
+  //console.log(userData);
   const handleNavigate = () => {
     if (userData) {
       navigateTo({
         navigation,
         path: '/wedding',
         params: {
-          name: userData[0]?.name || 'User',
+          name: userData?.name || 'User',
           eventName: eventName
         },
         replace: false,
@@ -79,11 +79,11 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   //   </TouchableOpacity>
   // );
 
-  return (
+   return (
     <View style={styles.container}>
-      {isLoading  ? (
-        <ActivityIndicator size="large"  />
-      ) : ( 
+  {/* //     {isLoading  ? ( */}
+  {/* //       <ActivityIndicator size="large"  /> */}
+  {/* //     ) : (  */}
         <>
           <View style={styles.header}>
             {/* ... */}
@@ -121,13 +121,17 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
             numColumns={3}
           /> */}
           <View style={styles.categoryContainer}>
-        {userData?.[0]?.categories.map((category: { description: string ; imageUrl: string; }, index: number) => (
+        {userData?.results.map((category: { description: string ; image: string; }, index: number) => (
             <TouchableOpacity 
+           
               key={index}
               style={styles.touchableCategory}
-              onPress={() => eventName = category.description}>
+              onPress={() => {
+               eventName = category.description
+               handleNavigate();
+              }}>
               <View style={styles.gridItem}>
-                <Image source={{ uri: category.imageUrl }} style={styles.gridImage} />
+                <Image source={{ uri: category.image }} style={styles.gridImage}  />
                 <TextView style={[styles.categoryText, { fontSize: getSize(Sizes.small) }]}>
                   {category.description}
                 </TextView>
@@ -136,7 +140,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
           ))}
       </View>
         </>
-      )}
+     
     </View>
   );
   

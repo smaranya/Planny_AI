@@ -53,7 +53,7 @@ const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
   const handleButtonSelect = (role: string) => {
     setSelectedButton(role);
   };
-
+console.log(selectedButton);
   return (
     <View style={styles.container}>
       <ImageBackground source={background} style={styles.background}>
