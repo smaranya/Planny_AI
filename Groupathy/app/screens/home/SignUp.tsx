@@ -1,7 +1,7 @@
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { TextView } from '../../components/atoms/TextView';
-import React, { useState } from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, TextInput, Keyboard} from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Dimensions, TextInput, Keyboard} from 'react-native';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
@@ -10,45 +10,21 @@ import { Button } from '../../components/molecules/Button';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
-  const background = require('../../assets/weddingplanbg.png');
-
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-
-  const showDatepicker = () => {
-    setShowDatePicker(true);
-  };
-  
-  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
-    if (selectedDate !== undefined) {
-      setDate(selectedDate);
-    }
-    setShowDatePicker(false);
-  };
-
-  const formatDate = (date: Date) => {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  };
+const SignUp : React.FC<MyComponentProps> = ({navigation}) => {
 
   const hideKeyboard = () => {
     Keyboard.dismiss();
   };
 
-
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/wedding/role', // Replace with the desired path
+      path: '/home', // Replace with the desired path
       params: {
         // Include any additional parameters you need
       },
@@ -59,7 +35,6 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
   return (
     <TouchableComponent touchable="withoutFeedBack" onPress={hideKeyboard}>
       <View style={styles.container}>
-        <ImageBackground source={background} style={styles.background}>
           <View style={styles.container}>
             <View style={styles.header}>
               <TextView
@@ -74,50 +49,35 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
               style={[styles.text, { fontSize: getSize(Sizes.xLarge)}]}
               textColor={{color: Colors.white}}
               fontFamily={FontStyles.regular}>
-              Lets Plan the Wedding
+              SIGN UP
               </TextView>
               <View style={styles.textFields}>
-                <View style={styles.textField}>
+              <View style={styles.textField}>
                   <TextInput 
-                  placeholder='Guest Count'
-                  placeholderTextColor={getColor({color: Colors.black})}
-                  keyboardType='numeric'
-                  style={styles.input}
-                  />
-                  <Icon iconName='group'/>
-                </View>
-                <View style={styles.textField}>
-                  <TextInput 
-                  placeholder='Location'
+                  placeholder='Username'
                   placeholderTextColor={getColor({color: Colors.black})}
                   style={styles.input}
                   />
-                  <Icon iconName='location-on'/>
-                </View>
-                <View style={[styles.textField, {paddingVertical: getSpace(Spaces.small)}]}>
-                  <TouchableComponent touchable="highLight" onPress={showDatepicker} style={styles.input}>
-                    <TextView style={styles.input}>{formatDate(date)}</TextView>
-                  </TouchableComponent>
-                  {showDatePicker && (
-                    <RNDateTimePicker
-                      mode="date"
-                      value={date}
-                      display="calendar"
-                      onChange={(event: any, selectedDate: Date | undefined) => {
-                        handleDateChange(event, selectedDate);
-                      }}
-                    />
-                  )}
-                  <Icon iconName='today'/>
+                  <Icon iconName='person'/>
                 </View>
                 <View style={styles.textField}>
                   <TextInput 
-                  placeholder='Budget Range'
+                  placeholder='Email'
                   placeholderTextColor={getColor({color: Colors.black})}
-                  keyboardType='numeric'
+                  keyboardType='email-address'
                   style={styles.input}
                   />
-                  <Icon iconName='payments'/>
+                  <Icon iconName='email'/>
+                </View>
+                <View style={styles.textField}>
+                  <TextInput 
+                  placeholder='Password'
+                  placeholderTextColor={getColor({color: Colors.black})}
+                  secureTextEntry={true}
+                  maxLength={20}
+                  style={styles.input}
+                  />
+                  <Icon iconName='password'/>
                 </View>
               </View>
               <Button
@@ -131,29 +91,24 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Get Started'
+                text='Sign Up'
                 />
             </View>
           </View>
-        </ImageBackground>
       </View>
     </TouchableComponent>
    );       
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex : 1, 
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: getColor({color: Colors.red}),
     width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height
+    height: Dimensions.get('screen').height,
+    padding: getSpace(Spaces.medium)
   },
   header: {
     flexDirection: 'row',
@@ -186,7 +141,7 @@ const styles = StyleSheet.create({
     marginVertical: getSpace(Spaces.small),
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly'
   },
   input: {
     fontFamily: getName(FontStyles.blockBold),
@@ -200,4 +155,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default WeddingPlan;
+export default SignUp;

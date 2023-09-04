@@ -1,6 +1,6 @@
 import { TextView } from '../../components/atoms/TextView';
-import React from 'react'
-import { Dimensions, ImageBackground, StyleSheet, TextInput, View } from 'react-native'
+import React, { useState } from 'react'
+import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
@@ -8,6 +8,8 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Button } from '../../components/molecules/Button';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import TouchableComponent from '../../components/molecules/TouchableComponent';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -15,7 +17,20 @@ type MyComponentProps = {
 
 const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const showDatepicker = () => {
+    setShowDatePicker(true);
+  };
   
+  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
+    if (selectedDate !== undefined) {
+      setDate(selectedDate);
+    }
+    setShowDatePicker(false);
+  };
+
   const handleNavigate = () => {
     navigateTo({
       navigation,
@@ -25,6 +40,13 @@ const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
       },
       replace: false, // Set to true if you want to use replace navigation
     });
+  };
+
+  const formatDate = (date: Date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   };
 
   return (
@@ -45,11 +67,19 @@ const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
                 </TextView>
             </View>
             <View style={styles.textField}>
-                <TextInput 
-                  placeholder='DD/MM/YYYY'
-                  placeholderTextColor={getColor({color: Colors.grey})}
-                  style={styles.input}
-                />
+            <TouchableComponent touchable="highLight" onPress={showDatepicker} style={styles.input}>
+              <TextView style={styles.input}>{formatDate(date)}</TextView>
+            </TouchableComponent>
+            {showDatePicker && (
+              <RNDateTimePicker
+                mode="date"
+                value={date}
+                display="calendar"
+                onChange={(event: any, selectedDate: Date | undefined) => {
+                  handleDateChange(event, selectedDate);
+                }}
+              />
+            )}
             </View>
             <Button
                 style={styles.button}
@@ -117,6 +147,7 @@ const styles = StyleSheet.create({
     input: {
         fontFamily: getName(FontStyles.blockBold),
         width: '100%',
+        padding: getSpace(Spaces.small),
         textAlign: 'center'
     },
     button: {

@@ -16,6 +16,8 @@ import WeddingRole from '../screens/wedding/WeddingRole';
 import WeddingDate from '../screens/wedding/WeddingDate';
 import WeddingCity from '../screens/wedding/WeddingCity';
 import WeddingBudget from '../screens/wedding/WeddingBudget';
+import Login from '../screens/home/Login';
+import SignUp from '../screens/home/SignUp';
 
 export type Route = {
   name: string;
@@ -56,13 +58,23 @@ const appRoutes = [
     screen: IllnessGroups,
   },
   {
+    name: RouteName.LOGIN,
+    regexs:['/login'],
+    screen: Login
+  },
+  {
+    name: RouteName.SIGNUP,
+    regexs:['/signup'],
+    screen: SignUp
+  },
+  {
     name: RouteName.HOME,
-    regexs: ['/home'],
+    regexs:['/home'],
     screen: HomeScreen,
   },
   {
     name: RouteName.WEDDING_PLAN,
-    regexs: ['/wedding'],
+    regexs:['/wedding'],
     screen: WeddingPlan
   },
   {

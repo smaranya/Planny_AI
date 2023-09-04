@@ -15,7 +15,7 @@ type NavigatorProps = {
 const statusBarColor = getColor({color: Colors.red});
 
 const AppNavigator = (props: NavigatorProps) => {
-  const {name = RouteName.HOME, params = {}} =
+  const {name = RouteName.LOGIN, params = {}} =
     (props.initialUrl && screenForPath(props.initialUrl, routes)) || {};
   const initialParamsFromApp = props.initialParams || {};
   const stackViewProps: StackViewProps = {
