@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from '../../components/atoms/Icon';
 import navigateTo from '../../navigation/navigateTo';
 import { NavigationProp } from '@react-navigation/native';
+import TouchableComponent from '../../components/molecules/TouchableComponent';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -44,7 +45,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   ];  
 
   const renderItem = ({item}: {item: Item}) => (
-    <TouchableOpacity 
+    <TouchableComponent touchable="opacity" 
     style={styles.touchableCategory}
     onPress={handleNavigate}>
       <View style={styles.gridItem}>
@@ -52,7 +53,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
       <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}
       fontFamily={FontStyles.blockBold}>{item.description}</TextView>
       </View>
-    </TouchableOpacity>
+    </TouchableComponent>
   );
 
   return (
@@ -79,7 +80,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
           </TouchableOpacity>
         </View>
         </View>
-        <TouchableOpacity 
+        <TouchableComponent touchable="opacity"
             style = {styles.touchable}
             onPress={()=>{console.log("Event Pressed!")}}>
         <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
@@ -98,7 +99,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
           </TextView>
         </View>
         </ImageBackground>
-        </TouchableOpacity>
+        </TouchableComponent>
         <View style={styles.mainTextContainer}>
           <TextView
             style={[styles.imgText, {fontSize: getSize(Sizes.largePlus)}]}
