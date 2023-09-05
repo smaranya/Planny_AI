@@ -30,8 +30,8 @@ interface Params {
 const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
   const background = require('../../assets/choicebg.png');
   const route = useRoute();
-  const { name, eventName, formData, selectedRole } = route.params as Params;
-
+  const { name, eventName, formData } = route.params as Params;
+  
   const handleNavigate = () => {
     navigateTo({
       navigation,
@@ -40,7 +40,7 @@ const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
         name: name,
         eventName: eventName,
         formData: formData,
-        selectedRole: selectedRole, // Include the selected role in params
+        selectedRole: selectedButton, // Include the selected role in params
       },
       replace: false,
     });

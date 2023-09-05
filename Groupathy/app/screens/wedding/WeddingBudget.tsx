@@ -8,6 +8,7 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
 import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
+import { postUserData } from './api/ApiCall';
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
@@ -24,30 +25,31 @@ interface Params {
     date: string;
     budget: string;
   }
-const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
+const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
+  const [budget,setBudget] = useState('');
   const background = require('../../assets/choicebg.png');
-  const handleNavigate = () => {
-    
-    navigateTo({
-      navigation,
-      path: '/wedding/budget', 
-      params: {
-       formData: formData,
-       name:name,
-       eventName:eventName,
-       selectedRole: selectedRole
-      },
-      replace: false, 
-    });
-  };
   const route = useRoute();
+ 
   const { formData,name,eventName,selectedRole } = route.params as Params;
-console.log(selectedRole);
   
+ 
   const data = {
-    
+
     formData,name,eventName,selectedRole
   }
+ 
+  const handleNavigate = () => {
+    console.log(data);
+    postUserData(data);
+    navigateTo({
+      navigation,
+      path: '/wedding/budget', // Replace with the desired path
+      params: {
+        
+      },
+      replace: false, // Set to true if you want to use replace navigation
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -63,7 +65,7 @@ console.log(selectedRole);
             </View>
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
-                Which city is the wedding in?
+                Budget in Mind?
                 </TextView>
             </View>
             <View style={styles.choices}>
@@ -71,47 +73,10 @@ console.log(selectedRole);
                 style={styles.button}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: ()=>{
-                      formData.location = 'Mumbai'
-                      handleNavigate()
-                    },
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                  
-                }}
-                text='Mumbai'
-            />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: ()=>{
-                    
-                      formData.location = 'Banglore'
-                      console.log(data);
-                      handleNavigate()
-                    },
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                 
-                }}
-                text='Bangalore'
-            />
-            <Button
-                style={[styles.button]}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: ()=>{
-                     
-                      formData.location = 'Pune'
-                      console.log(data);
-                      handleNavigate()
+                    onPress:() =>{
+                        formData.budget = '15 Lakhs'
+                        console.log("Budget", budget);
+                        handleNavigate()
                     },
                 }}
                 textProps={{
@@ -119,17 +84,15 @@ console.log(selectedRole);
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Pune'
+                text='15 Lakhs'
             />
             <Button
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: ()=>{
-                     
-                      formData.location = 'Delhi'
-                      console.log(data);
-                      handleNavigate()
+                    onPress:() =>{
+                       formData.budget ='20 Lakhs'
+                        handleNavigate()
                     },
                 }}
                 textProps={{
@@ -137,25 +100,23 @@ console.log(selectedRole);
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Delhi'
+                text='20 Lakhs'
             />
             <Button
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress : () =>{
-                      
-                      formData.location = 'Other'
-                      console.log(data);
-                      handleNavigate()
-                    }
+                    onPress:() =>{
+                        formData.budget='25 Lakhs' 
+                        handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Other'
+                text='25 Lakhs'
             />
             </View>
             </View>
@@ -186,12 +147,12 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width,
     },
     logoText: {
-    
+
     },
     inner: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '60%',
+        width: '50%',
         paddingVertical: getSpace(Spaces.xLarge)
     },
     choiceText: {
@@ -200,8 +161,6 @@ const styles = StyleSheet.create({
     },
     choices: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
     },
     button: {
         backgroundColor: getColor({color: Colors.white}),
@@ -210,8 +169,10 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: getColor({color: Colors.grey}),
         borderWidth: 1,
-        margin: getSpace(Spaces.small),
+        marginHorizontal: getSpace(Spaces.small),
     },
 })
 
-export default WeddingCity;
+export default WeddingBudget;
+
+

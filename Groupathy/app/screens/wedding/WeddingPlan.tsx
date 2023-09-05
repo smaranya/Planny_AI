@@ -58,7 +58,7 @@ const WeddingPlan: React.FC<MyComponentProps> = ({ navigation }) => {
       replace: false, 
     });
   };
-
+  
   const handleChangeText = (field: string, value: string) => {
     setFormData({
       ...formData,

@@ -34,6 +34,7 @@ const WeddingDate: React.FC<MyComponentProps> = ({ navigation }) => {
   const [date, setDate] = useState(formData.date);
 
   const handleNavigate = () => {
+    
     navigateTo({
       navigation,
       path: '/wedding/city',

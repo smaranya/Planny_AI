@@ -6,6 +6,7 @@ export enum GetEndpoints {
     ONBOARDING_QUESTIONS = 'intialtnc/',
     SUICIDE_CHECK = 'suicidechecknote/',
     DASHBOARD = "api/plan/categories/"
+    
 }
 
 export enum PostEndpoints {
@@ -14,6 +15,7 @@ export enum PostEndpoints {
   GROUP_QUESTIONNAIRE_RESULT = 'user/questionnaire/analytics/',
   SEND_EMAIL = 'user/sendemail/',
   CREATE_USER = 'create/user/',
+  GPT_POST = "chat-gpt/post"
 }
 
 export enum HTTP_CODES {
