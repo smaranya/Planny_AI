@@ -10,13 +10,13 @@ import { Button } from '../../components/molecules/Button';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
-import {Header} from '../../components/molecules/Header'
+import { Header } from '../../components/molecules/Header';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const SignUp : React.FC<MyComponentProps> = ({navigation}) => {
+const OTP : React.FC<MyComponentProps> = ({navigation}) => {
 
   const hideKeyboard = () => {
     Keyboard.dismiss();
@@ -25,7 +25,7 @@ const SignUp : React.FC<MyComponentProps> = ({navigation}) => {
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/signup/otp', // Replace with the desired path
+      path: '/home', // Replace with the desired path
       params: {
         // Include any additional parameters you need
       },
@@ -43,36 +43,15 @@ const SignUp : React.FC<MyComponentProps> = ({navigation}) => {
               style={[styles.text, { fontSize: getSize(Sizes.xLarge)}]}
               textColor={{color: Colors.white}}
               fontFamily={FontStyles.regular}>
-              SIGN UP
+              Enter OTP
               </TextView>
-              <View style={styles.textFields}>
               <View style={styles.textField}>
                   <TextInput 
-                  placeholder='Username'
+                  placeholder='XXXX'
                   placeholderTextColor={getColor({color: Colors.black})}
+                  keyboardType='numeric'
                   style={styles.input}
                   />
-                  <Icon iconName='person'/>
-                </View>
-                <View style={styles.textField}>
-                  <TextInput 
-                  placeholder='Phone Number'
-                  placeholderTextColor={getColor({color: Colors.black})}
-                  keyboardType='email-address'
-                  style={styles.input}
-                  />
-                  <Icon iconName='phone'/>
-                </View>
-                <View style={styles.textField}>
-                  <TextInput 
-                  placeholder='Password'
-                  placeholderTextColor={getColor({color: Colors.black})}
-                  secureTextEntry={true}
-                  maxLength={20}
-                  style={styles.input}
-                  />
-                  <Icon iconName='password'/>
-                </View>
               </View>
               <Button
                 style={[styles.button]}
@@ -85,7 +64,7 @@ const SignUp : React.FC<MyComponentProps> = ({navigation}) => {
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
                 }}
-                text='Verify OTP'
+                text='Sign Up'
                 />
             </View>
           </View>
@@ -113,22 +92,18 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center'
   },
-  textFields: {
-    alignItems: 'center'
-  },
   textField: {
     width: '100%',
     backgroundColor: getColor({color: Colors.white}),
     borderRadius: 10,
     paddingHorizontal: getSpace(Spaces.medium),
-    marginVertical: getSpace(Spaces.small),
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly'
+    justifyContent: 'center'
   },
   input: {
     fontFamily: getName(FontStyles.blockBold),
-    width: '80%'
+    width: '80%',
+    textAlign: 'center'
   },
   button: {
     backgroundColor: 'white',
@@ -138,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUp;
+export default OTP;

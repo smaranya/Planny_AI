@@ -18,6 +18,7 @@ import WeddingCity from '../screens/wedding/WeddingCity';
 import WeddingBudget from '../screens/wedding/WeddingBudget';
 import Login from '../screens/home/Login';
 import SignUp from '../screens/home/SignUp';
+import OTP from '../screens/home/OTP';
 
 export type Route = {
   name: string;
@@ -66,6 +67,11 @@ const appRoutes = [
     name: RouteName.SIGNUP,
     regexs:['/signup'],
     screen: SignUp
+  },
+  {
+    name: RouteName.OTP,
+    regexs:['/signup/otp'],
+    screen: OTP
   },
   {
     name: RouteName.HOME,

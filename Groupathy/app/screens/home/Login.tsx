@@ -1,6 +1,6 @@
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { TextView } from '../../components/atoms/TextView';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, TextInput, Keyboard} from 'react-native';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
@@ -10,6 +10,7 @@ import { Button } from '../../components/molecules/Button';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
+import { Header } from '../../components/molecules/Header';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -22,28 +23,40 @@ const Login : React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   const handleNavigate = () => {
+      navigateTo({
+        navigation,
+        path: '/home', // Replace with the desired path
+        params: {
+          // Include any additional parameters you need
+        },
+        replace: false, // Set to true if you want to use replace navigation
+      });
+  };
+
+  const goToSignup = () => {
     navigateTo({
       navigation,
-      path: '/home', // Replace with the desired path
+      path: '/signup',
       params: {
-        // Include any additional parameters you need
+
       },
-      replace: false, // Set to true if you want to use replace navigation
-    });
-  };
+      replace: false
+    })
+  }
   
   return (
     <TouchableComponent touchable="withoutFeedBack" onPress={hideKeyboard}>
       <View style={styles.container}>
           <View style={styles.container}>
-            <View style={styles.header}>
+            <Header />
+            {/* <View style={styles.header}>
               <TextView
               style={[styles.logoText, { fontSize: getSize(Sizes.xLarge)}]}
               textColor={{color: Colors.white}}
               fontFamily={FontStyles.blockBold}>
               LOGO
               </TextView>
-            </View>
+            </View> */}
             <View style={styles.inner}>
               <TextView
               style={[styles.text, { fontSize: getSize(Sizes.xLarge)}]}
@@ -54,12 +67,13 @@ const Login : React.FC<MyComponentProps> = ({navigation}) => {
               <View style={styles.textFields}>
                 <View style={styles.textField}>
                   <TextInput 
-                  placeholder='Email'
+                  placeholder='Phone Number'
                   placeholderTextColor={getColor({color: Colors.black})}
-                  keyboardType='email-address'
+                  keyboardType='phone-pad'
                   style={styles.input}
+                  maxLength={10}
                   />
-                  <Icon iconName='email'/>
+                  <Icon iconName='phone'/>
                 </View>
                 <View style={styles.textField}>
                   <TextInput 
@@ -72,6 +86,11 @@ const Login : React.FC<MyComponentProps> = ({navigation}) => {
                   <Icon iconName='password'/>
                 </View>
               </View>
+              <TouchableComponent touchable="opacity" onPress={goToSignup}>
+                <TextView style={[styles.input, {color: getColor({color: Colors.white}), textDecorationLine: 'underline'}]}>
+                  New User?
+                </TextView>
+              </TouchableComponent>
               <Button
                 style={[styles.button]}
                 touchableProps={{
@@ -101,17 +120,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
     padding: getSpace(Spaces.medium)
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: getSpace(Spaces.medium),
-    paddingHorizontal: getSpace(Spaces.medium),
-    width: Dimensions.get('screen').width,
-  },
-  logoText: {
-
   },
   inner: {
     flex: 1,

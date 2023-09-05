@@ -10,6 +10,7 @@ import navigateTo from '../../navigation/navigateTo';
 import { Button } from '../../components/molecules/Button';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
+import { Header } from '../../components/molecules/Header';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -53,14 +54,7 @@ const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>
             <View style={styles.container}>
-            <View style={styles.header}>
-              <TextView
-              style={[styles.logoText, { fontSize: getSize(Sizes.xLarge)}]}
-              textColor={{color: Colors.red}}
-              fontFamily={FontStyles.blockBold}>
-              LOGO
-              </TextView>
-            </View>
+            <Header />
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
                 Do you have a wedding date?
@@ -112,17 +106,6 @@ const styles = StyleSheet.create({
         flex : 1, 
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: getSpace(Spaces.medium),
-        paddingHorizontal: getSpace(Spaces.medium),
-        width: Dimensions.get('screen').width,
-    },
-    logoText: {
-    
     },
     inner: {
         justifyContent: 'center',
