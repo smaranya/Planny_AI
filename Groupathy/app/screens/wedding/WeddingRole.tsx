@@ -8,7 +8,7 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
 import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
-
+import { Header } from '../../components/molecules/Header';
 type MyComponentProps = {
   navigation: NavigationProp<any>;
 };
@@ -30,7 +30,7 @@ interface Params {
 const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
   const background = require('../../assets/choicebg.png');
   const route = useRoute();
-  const { name, eventName, formData } = route.params as Params;
+  const { name, eventName, formData, selectedRole } = route.params as Params;
   
   const handleNavigate = () => {
     navigateTo({
@@ -58,14 +58,7 @@ console.log(selectedButton);
     <View style={styles.container}>
       <ImageBackground source={background} style={styles.background}>
         <View style={styles.container}>
-          <View style={styles.header}>
-            <TextView
-              style={[styles.logoText, { fontSize: getSize(Sizes.xLarge) }]}
-              textColor={{ color: Colors.red }}
-              fontFamily={FontStyles.blockBold}>
-              LOGO
-            </TextView>
-          </View>
+        <Header />
           <View style={styles.inner}>
             <TextView style={styles.choiceText}>Tell us who you are</TextView>
           </View>
@@ -142,15 +135,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: getSpace(Spaces.medium),
-    paddingHorizontal: getSpace(Spaces.medium),
-    width: Dimensions.get('screen').width,
-  },
-  logoText: {},
+  
   inner: {
     justifyContent: 'center',
     alignItems: 'center',

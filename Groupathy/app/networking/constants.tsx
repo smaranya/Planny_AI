@@ -5,7 +5,9 @@ export enum GetEndpoints {
     USER_ANALYTICS = 'user/analytics',
     ONBOARDING_QUESTIONS = 'intialtnc/',
     SUICIDE_CHECK = 'suicidechecknote/',
-    DASHBOARD = "api/plan/categories/"
+    DASHBOARD = "api/plan/categories/",
+    GET_USER ="",
+    GET_OTP ="api/account/sendotp/"
     
 }
 
@@ -15,7 +17,10 @@ export enum PostEndpoints {
   GROUP_QUESTIONNAIRE_RESULT = 'user/questionnaire/analytics/',
   SEND_EMAIL = 'user/sendemail/',
   CREATE_USER = 'create/user/',
-  GPT_POST = "chat-gpt/post"
+  CHATGPT_POST = "chat-gpt/post",
+  SIGNUP_POST = "api/account/register/",
+  LOGIN_POST = "api/account/login/",
+  VERIFY_OTP = "verifyotp/<str:phone>/<str:session_id>/<str:otp>/"
 }
 
 export enum HTTP_CODES {

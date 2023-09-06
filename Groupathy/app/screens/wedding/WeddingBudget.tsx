@@ -9,6 +9,7 @@ import { Button } from '../../components/molecules/Button';
 import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { postUserData } from './api/ApiCall';
+import { Header } from '../../components/molecules/Header';
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
@@ -55,14 +56,7 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>
             <View style={styles.container}>
-            <View style={styles.header}>
-              <TextView
-              style={[styles.logoText, { fontSize: getSize(Sizes.xLarge)}]}
-              textColor={{color: Colors.red}}
-              fontFamily={FontStyles.blockBold}>
-              LOGO
-              </TextView>
-            </View>
+            <Header />
             <View style={styles.inner}>
                 <TextView style={styles.choiceText}>
                 Budget in Mind?
@@ -138,17 +132,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: getSpace(Spaces.medium),
-        paddingHorizontal: getSpace(Spaces.medium),
-        width: Dimensions.get('screen').width,
-    },
-    logoText: {
 
-    },
     inner: {
         justifyContent: 'center',
         alignItems: 'center',

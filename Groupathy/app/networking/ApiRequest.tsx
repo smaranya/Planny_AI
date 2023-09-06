@@ -57,13 +57,19 @@ const ApiRequest = (
               : apiService.postOrPut(requestBody),
           )
             .then((response) => {
-              if (response.status === HTTP_CODES.HTTP_STATUS_OK && response) {
+              if (response.status === HTTP_CODES.HTTP_STATUS_OK  && response) {
                 console.log("API CALLED")
-                console.log(response.status)
-                console.log(response)
+                // console.log(response.status)
+                // console.log(response)
                 console.log("Response Headers:", response.headers);
                 resolve(response.json());
-              } else {
+              } 
+              else if (response.status === 201  && response){
+                  console.log("User created");
+                  resolve(response.json());
+              }
+              else
+               {
                 console.log("Rejected")
                 console.log(response.headers);
                 reject(getErrorData(response.status));
@@ -72,11 +78,11 @@ const ApiRequest = (
             .catch((err) => {
               console.log("Api requested but error",err);
               console.log(apiEndpoint);
-            
               console.log(method);
               reject(getErrorData(HTTP_CODES.HTTP_GENERIC_ERROR));
             });
         } else {
+          console.log(path)
           reject(getErrorData(HTTP_CODES.HTTP_NO_NETWORK));
         }
       })

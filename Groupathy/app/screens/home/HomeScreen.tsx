@@ -7,24 +7,31 @@ import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { getSpace, Spaces } from '../../styles/spaces';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import navigateTo from '../../navigation/navigateTo';
-import { NavigationProp } from '@react-navigation/native';
-import { HomeScreenResponse } from './api/Models';
-import { fetchUserData } from './api/ApiCalls';
-
+import { NavigationProp, useRoute } from '@react-navigation/native';
+import { HomeScreenResponse, User } from './api/Models';
+import { fetchUserData, loginUser } from './api/ApiCalls';
+import TouchableComponent from '../../components/molecules/TouchableComponent';
 type MyComponentProps = {
   navigation: NavigationProp<any>;
 };
+interface Params{
+  name:string,
+  phone_number:string,
+}
 
 const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   const homeScreenImage = require('../../assets/homeScreen.png');
+  const route = useRoute();
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState<HomeScreenResponse | null>();
+  const [categories, setCategories] = useState<HomeScreenResponse | null>();
+  const [userData,setUserData] = useState<User>();
+  const {name,phone_number}  = route.params as Params;
   var eventName = '';
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data =  await fetchUserData();
-        setUserData(data);
+        setCategories(data);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -35,55 +42,23 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   }, []);
   //console.log(userData);
   const handleNavigate = () => {
-    if (userData) {
+    if (categories) {
       navigateTo({
         navigation,
         path: '/wedding',
         params: {
-          name: userData?.name || 'User',
+          name: name || 'User',
           eventName: eventName
         },
         replace: false,
       });
     }
   };
-  
-  
-  interface Item {
-    id: string;
-    image: any;
-    description: string;
-  }
-
-  const data: Item[] = [
-    { id: '1', image: require('../../assets/wedding.png'), description: 'Wedding' },
-    { id: '2', image: require('../../assets/travel.png'), description: 'Travel' },
-    { id: '3', image: require('../../assets/career.png'), description: 'Career' },
-    { id: '4', image: require('../../assets/birthday.png'), description: 'Birthday' },
-    { id: '5', image: require('../../assets/wedding.png'), description: 'Wedding' },
-    { id: '6', image: require('../../assets/travel.png'), description: 'Travel' },
-  ];  
-
-  // const renderItem = ({item}: {item: Item}) => (
-  //   <TouchableOpacity 
-  //   style={styles.touchableCategory}
-  //   onPress={()=>{
-  //     eventName = userData[0]?.description || ''
-  //     handleNavigate
-  //   }}>
-  //     <View style={styles.gridItem}>
-  //     <Image source={item.image} style={styles.gridImage} />
-  //     <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}
-  //     fontFamily={FontStyles.blockBold}>{item.description}</TextView>
-  //     </View>
-  //   </TouchableOpacity>
-  // );
-
    return (
     <View style={styles.container}>
-  {/* //     {isLoading  ? ( */}
-  {/* //       <ActivityIndicator size="large"  /> */}
-  {/* //     ) : (  */}
+      {/* {isLoading  ? (
+    <ActivityIndicator size="large"  /> 
+       ) : (   */}
         <>
           <View style={styles.header}>
             {/* ... */}
@@ -109,20 +84,13 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
               style={[styles.imgText, { fontSize: getSize(Sizes.medium) }]}
               textColor={{ color: Colors.grey }}
               fontFamily={FontStyles.blockBold}>
-              {/* {userData?.eventDetails} Example usage */}
+             {name}
             </TextView>
           </View>
-          {/* <FlatList
-            style={styles.categoryList}
-            contentContainerStyle={{ alignItems: 'flex-start', justifyContent: 'center' }}
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            numColumns={3}
-          /> */}
+         
           <View style={styles.categoryContainer}>
-        {userData?.results.map((category: { description: string ; image: string; }, index: number) => (
-            <TouchableOpacity 
+        {categories?.results.map((category: { description: string ; image: string; }, index: number) => (
+             <TouchableComponent touchable="opacity" 
            
               key={index}
               style={styles.touchableCategory}
@@ -136,11 +104,11 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
                   {category.description}
                 </TextView>
               </View>
-            </TouchableOpacity>
+              </TouchableComponent>
           ))}
       </View>
         </>
-     
+      
     </View>
   );
   
