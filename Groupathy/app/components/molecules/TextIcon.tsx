@@ -1,4 +1,4 @@
-import React, {StatelessComponent} from 'react';
+import React, {FunctionComponent} from 'react';
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {Icon, IconProps} from '../atoms/Icon';
 import {TextViewProps} from '../atoms/TextView';
@@ -48,9 +48,10 @@ export interface TextIconViewProps {
   text?: string;
   subText?: string;
   titleSubtitleDirection?: Direction;
+  backgroundColor?: string
 }
 
-export const TextIconView: StatelessComponent<TextIconViewProps> = (props) => {
+export const TextIconView: FunctionComponent<TextIconViewProps> = (props) => {
   const {
     styleTextIcon,
     textProps,
@@ -61,6 +62,7 @@ export const TextIconView: StatelessComponent<TextIconViewProps> = (props) => {
     subTextProps,
     styleTextSubtext = {},
     titleSubtitleDirection,
+    backgroundColor,
   } = props;
 
   const iconViewProps = iconProps ? iconProps : defaultProps.iconProps;
@@ -72,7 +74,7 @@ export const TextIconView: StatelessComponent<TextIconViewProps> = (props) => {
       text: title,
       ...defaultProps.textProps,
       ...textProps,
-      style: [defaultProps.textProps.style, textProps && textProps.style],
+      style: [defaultProps.textProps.style, textProps && textProps.style, backgroundColor ? { backgroundColor } : null,] as ViewStyle,
     },
     subtitleProps: {text: subtitle, ...subTextProps},
     direction: titleSubtitleDirection,

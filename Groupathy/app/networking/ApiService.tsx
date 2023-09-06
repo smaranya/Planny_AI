@@ -1,11 +1,12 @@
-import {ApiMethod, ApiHeader} from './types';
-import {getUniqueId} from 'react-native-device-info';
+import { ApiMethod, ApiHeader } from './types';
+import { getDeviceId } from 'react-native-device-info';
 
 export class APIService {
   private _method: ApiMethod = 'GET';
   private _headers: string[][] = [];
 
   constructor() {
+    this._headers = [];
     this.addDefaultHeader();
   }
 
@@ -21,12 +22,12 @@ export class APIService {
     return this._method;
   }
 
-  public addDefaultHeader() {
+  public  addDefaultHeader() {
     this.resetHeaders();
     this.addHeaders([
       {
         key: 'deviceId',
-        value: 'hello',
+        value: getDeviceId(),
       },
       {
         key: 'content-type',
@@ -36,14 +37,7 @@ export class APIService {
   }
 
   public addHeaders(headers: ApiHeader[]): APIService {
-    for (const i in headers) {
-      if (
-        headers[i].hasOwnProperty('key') &&
-        headers[i].hasOwnProperty('value')
-      ) {
-        this._headers.push([headers[i].key, headers[i].value]);
-      }
-    }
+    this._headers = headers.map(header => [header.key, header.value]);
     return this;
   }
 
@@ -56,7 +50,7 @@ export class APIService {
     return this;
   }
 
-  public postOrPut<T>(body: T): RequestInit {
+  public postOrPut<T>(body: T) {
     return {
       headers: this._headers,
       method: this._method,
@@ -64,7 +58,7 @@ export class APIService {
     };
   }
 
-  public get<T>(): RequestInit {
+  public get() {
     return {
       headers: this._headers,
       method: this._method,
@@ -85,3 +79,4 @@ export class RequestBody<T> {
 }
 
 export default APIService;
+

@@ -1,7 +1,7 @@
-import React, {StatelessComponent} from 'react';
+import React, {FunctionComponent} from 'react';
 import {StyleSheet, StyleProp, ViewStyle} from 'react-native';
 import {TextIconView, TextIconViewProps} from './TextIcon';
-import {Touchable, TouchableProps} from './TouchableComponent';
+import TouchableComponent, {TouchableComponentProps} from './TouchableComponent';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,27 +15,34 @@ const styles = StyleSheet.create({
 type ButtonBaseProps = {
   style?: StyleProp<ViewStyle>;
   disabledStyle?: StyleProp<ViewStyle>;
-  touchableProps?: Partial<TouchableProps>;
+  touchableProps?: Partial<TouchableComponentProps>;
 };
 
 export type ButtonProps = ButtonBaseProps & TextIconViewProps;
-export const Button: StatelessComponent<ButtonProps> = (props) => {
+export const Button: FunctionComponent<ButtonProps> = (props) => {
   const {
     style,
     disabledStyle,
-    touchableProps = {} as TouchableProps,
+    touchableProps = {} as TouchableComponentProps,
+    styleTextIcon,
     ...rest
   } = props;
 
   return (
-    <Touchable
+    <TouchableComponent
       {...touchableProps}
       style={[
         styles.container,
         style,
         touchableProps.disabled ? disabledStyle : null,
-      ]}>
-      <TextIconView {...rest} />
-    </Touchable>
+        // Apply the desired background color to the TouchableComponent
+      ]}
+    >
+      <TextIconView
+        {...rest}
+        // Apply the desired background color to the TextIconView
+      />
+    </TouchableComponent>
   );
 };
+

@@ -8,9 +8,20 @@ import ResultListView from '../screens/result-list/ResultListView';
 //import AppWebView from '../screens/webview/WebView';
 import IllnessDetail from '../screens/illnessDetail';
 import HomeScreen from '../screens/home/HomeScreen';
+import { useRoute } from '@react-navigation/native';
 //import Onboarding from '../screens/onboarding/Onboarding';
 import TestConsentScreen from '../screens/info/TestConsentScreen';
 import InfoScreen from '../screens/info/InfoScreen';
+import WeddingPlan from '../screens/wedding/WeddingPlan';
+import WeddingRole from '../screens/wedding/WeddingRole';
+import WeddingDate from '../screens/wedding/WeddingDate';
+import WeddingCity from '../screens/wedding/WeddingCity';
+import WeddingBudget from '../screens/wedding/WeddingBudget';
+import Login from '../screens/home/Login';
+import SignUp from '../screens/home/SignUp';
+import OTP from '../screens/home/OTP';
+
+
 
 export type Route = {
   name: string;
@@ -51,9 +62,49 @@ const appRoutes = [
     screen: IllnessGroups,
   },
   {
+    name: RouteName.LOGIN,
+    regexs:['/login'],
+    screen: Login
+  },
+  {
+    name: RouteName.SIGNUP,
+    regexs:['/signup'],
+    screen: SignUp
+  },
+  {
+    name: RouteName.OTP,
+    regexs:['/signup/otp'],
+    screen: OTP
+  },
+  {
     name: RouteName.HOME,
-    regexs: ['/home'],
+    regexs:['/home'],
     screen: HomeScreen,
+  },
+  {
+    name: RouteName.WEDDING_PLAN,
+    regexs:['/wedding'],
+    screen: WeddingPlan,
+  },
+  {
+    name: RouteName.WEDDING_ROLE,
+    regexs:['/wedding/role'],
+    screen: WeddingRole
+  },
+  {
+    name: RouteName.WEDDING_DATE,
+    regexs:['/wedding/date'],
+    screen: WeddingDate
+  },
+  {
+    name: RouteName.WEDDING_CITY,
+    regexs:['/wedding/city'],
+    screen: WeddingCity
+  },
+  {
+    name: RouteName.WEDDING_BUDGET,
+    regexs:['/wedding/budget'],
+    screen: WeddingBudget
   },
   {
     name: RouteName.ILLNESS_DETAIL,
