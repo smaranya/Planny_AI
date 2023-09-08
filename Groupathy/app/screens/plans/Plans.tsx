@@ -1,6 +1,6 @@
 import { TextView } from '../../components/atoms/TextView';
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
@@ -10,6 +10,8 @@ import navigateTo from '../../navigation/navigateTo';
 import Loader from '../../components/compounds/Loader';
 import { Icon } from '../../components/atoms/Icon';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
+import HalfCard from '../../components/wrappers/HalfCard';
+import Card from '../../components/compounds/Card';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -54,6 +56,22 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
           </TouchableComponent>
         </View>
         </View>
+        <TextView style={styles.title}>
+          Let's Plan the Wedding
+        </TextView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.cards}>
+        <Card
+        imageSource={require('../../assets/wedding.png')}
+        title="Haldi"
+        cost="30000"
+        guestCount="100 Guests"
+        onPress={() => {
+          // Handle the "More Details" button click here
+        }}
+      />
+        </View>
+        </ScrollView>
         </View>
     </View>
 
@@ -73,6 +91,11 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height
     },
+    scrollContainer: {
+      flexGrow: 1,
+      justifyContent: 'flex-start',
+      width: Dimensions.get('screen').width,
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -91,6 +114,16 @@ const styles = StyleSheet.create({
     username: {
         // Username styles here
     },
+    title: {
+      width: '50%',
+      fontSize: getSize(Sizes.xxLarge),
+      textAlign: 'center',
+      color: getColor({color: Colors.red}),
+      marginVertical: getSpace(Spaces.largePlus)
+    },
+    cards: {
+      margin: getSpace(Spaces.small),
+    }
 })
 
 export default Plans;

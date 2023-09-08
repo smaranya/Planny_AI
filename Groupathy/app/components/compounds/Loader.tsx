@@ -1,7 +1,7 @@
 import { FontStyles, getName } from '../../styles/fonts/names';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { TextView } from '../atoms/TextView';
 import { Colors, getColor } from '../../styles/colors';
@@ -37,7 +37,7 @@ const Loader: React.FC = () => {
       {
         showLoader && (
         <View style={styles.container}>
-            <TextView style={styles.logoText}>Planny.ai</TextView>  
+            <ActivityIndicator size='large'/>
             <Animatable.View animation="fadeIn" style={styles.loaderContainer}>
                 <TextView style={styles.loaderText}>{loadingText}</TextView>
             </Animatable.View>

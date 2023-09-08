@@ -39,8 +39,4 @@ const styles = StyleSheet.create({
       logoText: {
         // Apply logo text styles here
       },
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 8b28cd1a1dce2f34da6126430524e349d3aecd7e

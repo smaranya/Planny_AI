@@ -44,7 +44,7 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
     postUserData(data);
     navigateTo({
       navigation,
-      path: '/wedding/budget', // Replace with the desired path
+      path: '/plans', // Replace with the desired path
       params: {
         
       },
