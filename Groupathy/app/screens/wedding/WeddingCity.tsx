@@ -1,33 +1,55 @@
 import { TextView } from '../../components/atoms/TextView';
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Header } from '../../components/molecules/Header';
-
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
-
+interface Params {
+    name: string;
+    eventName: string;
+    formData: FormData;
+    selectedRole: string;
+  }
+  
+  interface FormData {
+    guestCount: string;
+    location: string;
+    date: string;
+    budget: string;
+  }
 const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
   const background = require('../../assets/choicebg.png');
-  
   const handleNavigate = () => {
+    
     navigateTo({
       navigation,
-      path: '/wedding/budget', // Replace with the desired path
+      path: '/wedding/budget', 
       params: {
-        // Include any additional parameters you need
+       formData: formData,
+       name:name,
+       eventName:eventName,
+       selectedRole: selectedRole
       },
-      replace: false, // Set to true if you want to use replace navigation
+      replace: false, 
     });
   };
+  const route = useRoute();
+  const { formData,name,eventName,selectedRole } = route.params as Params;
+console.log(selectedRole);
   
+  const data = {
+    
+    formData,name,eventName,selectedRole
+  }
+
   return (
     <View style={styles.container}>
         <ImageBackground source={background} style={styles.background}>
@@ -43,12 +65,16 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                 style={styles.button}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: ()=>{
+                      formData.location = 'Mumbai'
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
+                  
                 }}
                 text='Mumbai'
             />
@@ -56,12 +82,18 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: ()=>{
+                    
+                      formData.location = 'Banglore'
+                      console.log(data);
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
                   fontFamily: FontStyles.blockBold,
                   fontSize: Sizes.large,
+                 
                 }}
                 text='Bangalore'
             />
@@ -69,7 +101,12 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: ()=>{
+                     
+                      formData.location = 'Pune'
+                      console.log(data);
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -82,7 +119,12 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: ()=>{
+                     
+                      formData.location = 'Delhi'
+                      console.log(data);
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -95,7 +137,12 @@ const WeddingCity: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress : () =>{
+                      
+                      formData.location = 'Other'
+                      console.log(data);
+                      handleNavigate()
+                    }
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -124,6 +171,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
     },
+    
     inner: {
         justifyContent: 'center',
         alignItems: 'center',

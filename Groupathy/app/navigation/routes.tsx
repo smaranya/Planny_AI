@@ -8,6 +8,7 @@ import ResultListView from '../screens/result-list/ResultListView';
 //import AppWebView from '../screens/webview/WebView';
 import IllnessDetail from '../screens/illnessDetail';
 import HomeScreen from '../screens/home/HomeScreen';
+import { useRoute } from '@react-navigation/native';
 //import Onboarding from '../screens/onboarding/Onboarding';
 import TestConsentScreen from '../screens/info/TestConsentScreen';
 import InfoScreen from '../screens/info/InfoScreen';
@@ -19,6 +20,8 @@ import WeddingBudget from '../screens/wedding/WeddingBudget';
 import Login from '../screens/home/Login';
 import SignUp from '../screens/home/SignUp';
 import OTP from '../screens/home/OTP';
+
+
 
 export type Route = {
   name: string;
@@ -81,7 +84,7 @@ const appRoutes = [
   {
     name: RouteName.WEDDING_PLAN,
     regexs:['/wedding'],
-    screen: WeddingPlan
+    screen: WeddingPlan,
   },
   {
     name: RouteName.WEDDING_ROLE,

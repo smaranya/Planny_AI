@@ -36,37 +36,43 @@ export const screenForPath = (
 
 // main navigation part
 const _navigate = (navigation: any, navigationObject: any) => {
-  const {params, key} = navigationObject;
+  const { params, key, data } = navigationObject;
   navigation.navigate(navigationObject.routeName, {
     ...params,
     key,
+    data, // Include the data property in the navigation params
   });
 };
 
+
 const _replace = (navigation: any, navigationObject: any) => {
-  const {params, key} = navigationObject;
+  const { params, key, data } = navigationObject;
   navigation.replace(navigationObject.routeName, {
     ...params,
     key,
+    data, // Include the data property in the navigation params
   });
 };
+
 
 export default ({
   navigation,
   path,
   params = {},
+  data = {}, // Provide a default empty object for data
   replace = false,
 }: {
   navigation: Object;
   path: string;
   params: Object;
+  data?: Object; // Add a data property to the function parameters
   replace?: boolean;
 }) => {
-  const {pathname, query} = parse(path, true);
+  const { pathname, query } = parse(path, true);
   const {
     name,
     params: pathParams,
-  }: {name?: string; params?: Object} = screenForPath(pathname, routes);
+  }: { name?: string; params?: Object } = screenForPath(pathname, routes);
 
   replace
     ? _replace(navigation, {
@@ -74,19 +80,23 @@ export default ({
         params: {
           ...pathParams,
           ...params,
-          appRoute: {url: pathname},
+          appRoute: { url: pathname },
           query,
+          data, // Include the data property in the navigation params
         },
         key: pathname + (params && JSON.stringify(params)),
+        data, // Include the data property in the navigationObject
       })
     : _navigate(navigation, {
         routeName: name,
         params: {
           ...pathParams,
           ...params,
-          appRoute: {url: pathname},
+          appRoute: { url: pathname },
           query,
+          data, // Include the data property in the navigation params
         },
         key: pathname + (params && JSON.stringify(params)),
+        data, // Include the data property in the navigationObject
       });
 };

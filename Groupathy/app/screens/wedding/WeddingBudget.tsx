@@ -1,28 +1,52 @@
 import { TextView } from '../../components/atoms/TextView';
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
+import { postUserData } from './api/ApiCall';
 import { Header } from '../../components/molecules/Header';
-
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
-
-const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
-  const background = require('../../assets/choicebg.png');
+interface Params {
+    name: string;
+    eventName: string;
+    formData: FormData;
+    selectedRole: string;
+  }
   
+  interface FormData {
+    guestCount: string;
+    location: string;
+    date: string;
+    budget: string;
+  }
+const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
+  const [budget,setBudget] = useState('');
+  const background = require('../../assets/choicebg.png');
+  const route = useRoute();
+ 
+  const { formData,name,eventName,selectedRole } = route.params as Params;
+  
+ 
+  const data = {
+
+    formData,name,eventName,selectedRole
+  }
+ 
   const handleNavigate = () => {
+    console.log(data);
+    postUserData(data);
     navigateTo({
       navigation,
       path: '/wedding/budget', // Replace with the desired path
       params: {
-        // Include any additional parameters you need
+        
       },
       replace: false, // Set to true if you want to use replace navigation
     });
@@ -43,7 +67,11 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
                 style={styles.button}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress:() =>{
+                        formData.budget = '15 Lakhs'
+                        console.log("Budget", budget);
+                        handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -56,7 +84,10 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress:() =>{
+                       formData.budget ='20 Lakhs'
+                        handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -69,7 +100,10 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress:() =>{
+                        formData.budget='25 Lakhs' 
+                        handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},
@@ -123,3 +157,5 @@ const styles = StyleSheet.create({
 })
 
 export default WeddingBudget;
+
+

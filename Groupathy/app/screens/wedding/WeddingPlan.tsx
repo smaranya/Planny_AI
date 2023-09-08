@@ -1,7 +1,12 @@
-import { Sizes, getSize } from '../../styles/fonts/sizes';
-import { TextView } from '../../components/atoms/TextView';
 import React, { useState } from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, TextInput, Keyboard} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  TextInput,
+  Keyboard,
+} from 'react-native';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
@@ -12,21 +17,38 @@ import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { Header } from '../../components/molecules/Header';
+import { useRoute } from '@react-navigation/native';
+import { TextView } from '../../components/atoms/TextView';
+import { Sizes, getSize } from '../../styles/fonts/sizes';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
-  const background = require('../../assets/weddingplanbg.png');
+interface Params {
+  name: string;
+  eventName: string;
+}
 
+
+const WeddingPlan: React.FC<MyComponentProps> = ({ navigation }) => {
+  const [formData, setFormData] = useState({
+    guestCount: '',
+    location: '',
+    date: '',
+    budget: '',
+  });
+  const route = useRoute();
+  const { name, eventName } = route.params as Params;
+  
+  const background = require('../../assets/weddingplanbg.png');
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const showDatepicker = () => {
     setShowDatePicker(true);
   };
-  
+
   const handleDateChange = (event: any, selectedDate: Date | undefined) => {
     if (selectedDate !== undefined) {
       setDate(selectedDate);
@@ -49,14 +71,24 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/wedding/role', // Replace with the desired path
+      path: '/wedding/role', 
       params: {
-        // Include any additional parameters you need
+        
+        formData: formData, 
+        userName: name,
+        eventName: eventName,
       },
-      replace: false, // Set to true if you want to use replace navigation
+      replace: false, 
     });
   };
   
+  const handleChangeText = (field: string, value: string) => {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+  };
+
   return (
     <TouchableComponent touchable="withoutFeedBack" onPress={hideKeyboard}>
       <View style={styles.container}>
@@ -77,6 +109,7 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
                   placeholderTextColor={getColor({color: Colors.black})}
                   keyboardType='numeric'
                   style={styles.input}
+                  onChangeText={(number) => handleChangeText('guestCount', number)}
                   />
                   <Icon iconName='group'/>
                 </View>
@@ -85,6 +118,7 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
                   placeholder='Location'
                   placeholderTextColor={getColor({color: Colors.black})}
                   style={styles.input}
+                  onChangeText={(text) => handleChangeText('location', text)}
                   />
                   <Icon iconName='location-on'/>
                 </View>
@@ -110,6 +144,7 @@ const WeddingPlan : React.FC<MyComponentProps> = ({navigation}) => {
                   placeholderTextColor={getColor({color: Colors.black})}
                   keyboardType='numeric'
                   style={styles.input}
+                  onChangeText={(text) => handleChangeText('budget', text)}
                   />
                   <Icon iconName='payments'/>
                 </View>

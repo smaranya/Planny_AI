@@ -1,11 +1,11 @@
 import { TextView } from '../../components/atoms/TextView';
-import React, { useState } from 'react'
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
+import React, { useState } from 'react';
+import { Dimensions, ImageBackground, StyleSheet, TextInput, View } from 'react-native';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Button } from '../../components/molecules/Button';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -13,33 +13,44 @@ import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { Header } from '../../components/molecules/Header';
 
 type MyComponentProps = {
-    navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
+  navigation: NavigationProp<any>;
 };
 
-const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
-  const background = require('../../assets/choicebg.png');
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+interface Params {
+  name: string;
+  eventName: string;
+  formData: FormData;
+  selectedRole: string;
+}
 
-  const showDatepicker = () => {
-    setShowDatePicker(true);
-  };
-  
-  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
-    if (selectedDate !== undefined) {
-      setDate(selectedDate);
-    }
-    setShowDatePicker(false);
-  };
+interface FormData {
+  guestCount: string;
+  location: string;
+  date: string;
+  budget: string;
+}
+
+const WeddingDate: React.FC<MyComponentProps> = ({ navigation }) => {
+  const background = require('../../assets/choicebg.png');
+  const route = useRoute();
+  const { formData,name,eventName,selectedRole } = route.params as Params;
+  const [date, setDate] = useState(formData.date);
 
   const handleNavigate = () => {
+    
     navigateTo({
       navigation,
-      path: '/wedding/city', // Replace with the desired path
+      path: '/wedding/city',
       params: {
-        // Include any additional parameters you need
+        name: name ,
+        eventName: eventName,
+        formData: {
+          ...formData,
+          date: date,
+        },
+        selectedRole: selectedRole,
       },
-      replace: false, // Set to true if you want to use replace navigation
+      replace: false,
     });
   };
 
@@ -52,96 +63,103 @@ const WeddingDate: React.FC<MyComponentProps> = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-        <ImageBackground source={background} style={styles.background}>
-            <View style={styles.container}>
-            <Header />
-            <View style={styles.inner}>
-                <TextView style={styles.choiceText}>
-                Do you have a wedding date?
-                </TextView>
-            </View>
-            <View style={styles.textField}>
-            <TouchableComponent touchable="highLight" onPress={showDatepicker} style={styles.input}>
-              <TextView style={styles.input}>{formatDate(date)}</TextView>
-            </TouchableComponent>
-            {showDatePicker && (
-              <RNDateTimePicker
-                mode="date"
-                value={date}
-                display="calendar"
-                onChange={(event: any, selectedDate: Date | undefined) => {
-                  handleDateChange(event, selectedDate);
-                }}
-              />
-            )}
-            </View>
-            <Button
-                style={styles.button}
-                touchableProps={{
-                    touchable: 'highLight',
-                    onPress: handleNavigate,
-                }}
-                textProps={{
-                  textColor: {color: Colors.black},
-                  fontFamily: FontStyles.blockBold,
-                  fontSize: Sizes.large,
-                }}
-                text='Set Date'
+      <ImageBackground source={background} style={styles.background}>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <TextView
+              style={[styles.logoText, { fontSize: getSize(Sizes.xLarge) }]}
+              textColor={{ color: Colors.red }}
+              fontFamily={FontStyles.blockBold}>
+              LOGO
+            </TextView>
+          </View>
+          <View style={styles.inner}>
+            <TextView style={styles.choiceText}>Do you have a wedding date?</TextView>
+          </View>
+          <View style={styles.textField}>
+            <TextInput
+              placeholder='DD/MM/YYYY'
+              placeholderTextColor={getColor({ color: Colors.grey })}
+              style={styles.input}
+              value={date}
+              onChangeText={(text) => setDate(text)}
             />
-            </View>
-        </ImageBackground>
+          </View>
+          <Button
+            style={styles.button}
+            touchableProps={{
+              touchable: 'highLight',
+              onPress: handleNavigate,
+            }}
+            textProps={{
+              textColor: { color: Colors.black },
+              fontFamily: FontStyles.blockBold,
+              fontSize: Sizes.large,
+            }}
+            text='Set Date'
+          />
+        </View>
+      </ImageBackground>
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height
-    },
-    background: {
-        flex : 1, 
-        width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height,
-    },
-    inner: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '60%',
-        paddingVertical: getSpace(Spaces.xLarge)
-    },
-    choiceText: {
-        fontSize: getSize(Sizes.xxLarge),
-        textAlign: 'center',
-    },
-    textField: {
-        width: '80%',
-        backgroundColor: getColor({color: Colors.white}),
-        borderRadius: 10,
-        paddingHorizontal: getSpace(Spaces.medium),
-        marginVertical: getSpace(Spaces.small),
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    input: {
-        fontFamily: getName(FontStyles.blockBold),
-        width: '100%',
-        padding: getSpace(Spaces.small),
-        textAlign: 'center'
-    },
-    button: {
-        backgroundColor: getColor({color: Colors.white}),
-        width: '25%',
-        paddingVertical: getSpace(Spaces.small),
-        borderRadius: 10,
-        borderColor: getColor({color: Colors.grey}),
-        borderWidth: 1,
-        marginVertical: getSpace(Spaces.medium),
-    },
-})
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
+  },
+  background: {
+    flex: 1,
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: getSpace(Spaces.medium),
+    paddingHorizontal: getSpace(Spaces.medium),
+    width: Dimensions.get('screen').width,
+  },
+  logoText: {},
+  inner: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '60%',
+    paddingVertical: getSpace(Spaces.xLarge),
+  },
+  choiceText: {
+    fontSize: getSize(Sizes.xxLarge),
+    textAlign: 'center',
+  },
+  textField: {
+    width: '80%',
+    backgroundColor: getColor({ color: Colors.white }),
+    borderRadius: 10,
+    paddingHorizontal: getSpace(Spaces.medium),
+    marginVertical: getSpace(Spaces.small),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  input: {
+    fontFamily: getName(FontStyles.blockBold),
+    width: '100%',
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: getColor({ color: Colors.white }),
+    width: '25%',
+    paddingVertical: getSpace(Spaces.small),
+    borderRadius: 10,
+    borderColor: getColor({ color: Colors.grey }),
+    borderWidth: 1,
+    marginVertical: getSpace(Spaces.medium),
+  },
+});
 
 export default WeddingDate;

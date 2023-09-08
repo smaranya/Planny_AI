@@ -1,129 +1,117 @@
-import React from 'react';
-import { View, StyleSheet, ImageBackground, FlatList, Text, Image, Dimensions, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ImageBackground, FlatList, Text, Image, Dimensions, StatusBar, ActivityIndicator } from 'react-native';
 import { TextView } from '../../components/atoms/TextView';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { getSpace, Spaces } from '../../styles/spaces';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Icon } from '../../components/atoms/Icon';
 import navigateTo from '../../navigation/navigateTo';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
+import { HomeScreenResponse, User } from './api/Models';
+import { fetchUserData, loginUser } from './api/ApiCalls';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
-
 type MyComponentProps = {
-  navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
+  navigation: NavigationProp<any>;
 };
+interface Params{
+  name:string,
+  phone_number:string,
+}
 
 const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   const homeScreenImage = require('../../assets/homeScreen.png');
+  const route = useRoute();
+  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState<HomeScreenResponse | null>();
+  const [userData,setUserData] = useState<User>();
+  const {name,phone_number}  = route.params as Params;
+  var eventName = '';
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data =  await fetchUserData();
+        setCategories(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
+  //console.log(userData);
   const handleNavigate = () => {
-    navigateTo({
-      navigation,
-      path: '/wedding', // Replace with the desired path
-      params: {
-        // Include any additional parameters you need
-      },
-      replace: false, // Set to true if you want to use replace navigation
-    });
+    if (categories) {
+      navigateTo({
+        navigation,
+        path: '/wedding',
+        params: {
+          name: name || 'User',
+          eventName: eventName
+        },
+        replace: false,
+      });
+    }
   };
-  
-  interface Item {
-    id: string;
-    image: any;
-    description: string;
-  }
-
-  const data: Item[] = [
-    { id: '1', image: require('../../assets/wedding.png'), description: 'Wedding' },
-    { id: '2', image: require('../../assets/travel.png'), description: 'Travel' },
-    { id: '3', image: require('../../assets/career.png'), description: 'Career' },
-    { id: '4', image: require('../../assets/birthday.png'), description: 'Birthday' },
-    { id: '5', image: require('../../assets/wedding.png'), description: 'Wedding' },
-    { id: '6', image: require('../../assets/travel.png'), description: 'Travel' },
-  ];  
-
-  const renderItem = ({item}: {item: Item}) => (
-    <TouchableComponent touchable="opacity" 
-    style={styles.touchableCategory}
-    onPress={handleNavigate}>
-      <View style={styles.gridItem}>
-      <Image source={item.image} style={styles.gridImage} />
-      <TextView style={[styles.categoryText, {fontSize: getSize(Sizes.small)}]}
-      fontFamily={FontStyles.blockBold}>{item.description}</TextView>
-      </View>
-    </TouchableComponent>
-  );
-
-  return (
+   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-        <View>
-          <TextView
-            style={[styles.logoText, { fontSize: getSize(Sizes.large)}]}
-            textColor={{color: Colors.red}}
-            fontFamily={FontStyles.blockBold}>
-            LOGO
-          </TextView>
-        </View>
-        <View style={styles.right}>
-          <TextView 
-          style={[styles.username, {fontSize: getSize(Sizes.large)}]}
-          textColor={{color: Colors.black}}
-          fontFamily={FontStyles.blockReg}>
-            Hello, User</TextView>
-          <TouchableOpacity onPress={() => console.log("Menu Pressed!")}>
-            <Icon 
-              iconName={'menu'}
-            />
+      {/* {isLoading  ? (
+    <ActivityIndicator size="large"  /> 
+       ) : (   */}
+        <>
+          <View style={styles.header}>
+            {/* ... */}
+          </View>
+          <TouchableOpacity
+            style={styles.touchable}
+            onPress={() => {
+              console.log('Event Pressed!');
+            }}>
+            <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
+              {/* ... */}
+            </ImageBackground>
           </TouchableOpacity>
-        </View>
-        </View>
-        <TouchableComponent touchable="opacity"
-            style = {styles.touchable}
-            onPress={()=>{console.log("Event Pressed!")}}>
-        <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
-        <View style={styles.textContainer}>
-          <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.largeMedPlus)}]}
-            textColor={{ color: Colors.black }}
-            fontFamily={FontStyles.bold}>
-            Do Events Yourself
-          </TextView>
-          <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
-            textColor={{ color: Colors.black }}
-            fontFamily={FontStyles.blockReg}>
-            Some Details about the Event
-          </TextView>
-        </View>
-        </ImageBackground>
-        </TouchableComponent>
-        <View style={styles.mainTextContainer}>
-          <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.largePlus)}]}
-            textColor={{ color: Colors.black }}
-            fontFamily={FontStyles.bold}>
-            Do Events Yourself
-          </TextView>
-          <TextView
-            style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
-            textColor={{ color: Colors.grey }}
-            fontFamily={FontStyles.blockBold}>
-            Some Details about the Event
-          </TextView>
-        </View>
-        <FlatList
-          style={styles.categoryList}
-          contentContainerStyle={{alignItems: 'flex-start', justifyContent: 'center'}}
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={3}
-        />
+          <View style={styles.mainTextContainer}>
+            {/* Use userData here */}
+            <TextView
+              style={[styles.imgText, { fontSize: getSize(Sizes.largePlus) }]}
+              textColor={{ color: Colors.black }}
+              fontFamily={FontStyles.bold}>
+              Do Events Yourself
+            </TextView>
+            <TextView
+              style={[styles.imgText, { fontSize: getSize(Sizes.medium) }]}
+              textColor={{ color: Colors.grey }}
+              fontFamily={FontStyles.blockBold}>
+             {name}
+            </TextView>
+          </View>
+         
+          <View style={styles.categoryContainer}>
+        {categories?.results.map((category: { description: string ; image: string; }, index: number) => (
+             <TouchableComponent touchable="opacity" 
+           
+              key={index}
+              style={styles.touchableCategory}
+              onPress={() => {
+               eventName = category.description
+               handleNavigate();
+              }}>
+              <View style={styles.gridItem}>
+                <Image source={{ uri: category.image }} style={styles.gridImage}  />
+                <TextView style={[styles.categoryText, { fontSize: getSize(Sizes.small) }]}>
+                  {category.description}
+                </TextView>
+              </View>
+              </TouchableComponent>
+          ))}
+      </View>
+        </>
+      
     </View>
   );
+  
 };
 
 const styles = StyleSheet.create({
@@ -151,6 +139,13 @@ const styles = StyleSheet.create({
   },
   username: {
     // Username styles here
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: getSpace(Spaces.medium),
+    marginTop: getSpace(Spaces.medium),
   },
   menuIcon: {
     width: '20%',
