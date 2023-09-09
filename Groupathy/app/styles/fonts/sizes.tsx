@@ -1,5 +1,6 @@
 export enum Sizes {
-  xxxSmall = 1,
+  minimal = 1,
+  xxxSmall,
   xxSmall,
   xSmall,
   small,
@@ -19,6 +20,7 @@ export enum Sizes {
 }
 
 const sizeValues = {
+  [Sizes.minimal]: 1,
   [Sizes.xxxSmall]: 4,
   [Sizes.xxSmall]: 8,
   [Sizes.xSmall]: 10,

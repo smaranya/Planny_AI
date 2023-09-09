@@ -104,7 +104,7 @@ console.log(selectedButton);
             />
           </View>
           <Button
-            style={styles.button}
+            style={[styles.button, {marginTop: '20%'}]}
             touchableProps={{
               touchable: 'highLight',
               onPress: handleNavigate,

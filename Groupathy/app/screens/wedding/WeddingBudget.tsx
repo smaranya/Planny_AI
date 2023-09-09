@@ -44,7 +44,7 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
     postUserData(data);
     navigateTo({
       navigation,
-      path: '/wedding/budget', // Replace with the desired path
+      path: '/plans', // Replace with the desired path
       params: {
         
       },
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width,
         height: Dimensions.get('screen').height,
     },
-
     inner: {
         justifyContent: 'center',
         alignItems: 'center',

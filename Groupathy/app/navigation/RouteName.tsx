@@ -15,5 +15,6 @@ export default Object.freeze({
   WEDDING_BUDGET: 'WEDDING_BUDGET',
   LOGIN: 'LOGIN',
   SIGNUP: 'SIGNUP',
-  OTP: 'OTP'
+  OTP: 'OTP',
+  PLANS: 'PLANS'
 });

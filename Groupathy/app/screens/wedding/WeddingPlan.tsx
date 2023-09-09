@@ -67,6 +67,7 @@ const WeddingPlan: React.FC<MyComponentProps> = ({ navigation }) => {
     Keyboard.dismiss();
   };
 
+
   const handleNavigate = () => {
     navigateTo({
       navigation,

@@ -11,6 +11,7 @@ import { NavigationProp, useRoute } from '@react-navigation/native';
 import { HomeScreenResponse, User } from './api/Models';
 import { fetchUserData, loginUser } from './api/ApiCalls';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
+import { Icon } from '../../components/atoms/Icon';
 type MyComponentProps = {
   navigation: NavigationProp<any>;
 };
@@ -56,42 +57,65 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   };
    return (
     <View style={styles.container}>
-      {/* {isLoading  ? (
-    <ActivityIndicator size="large"  /> 
-       ) : (   */}
-        <>
-          <View style={styles.header}>
-            {/* ... */}
-          </View>
-          <TouchableOpacity
-            style={styles.touchable}
-            onPress={() => {
-              console.log('Event Pressed!');
-            }}>
-            <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
-              {/* ... */}
-            </ImageBackground>
+        <View style={styles.header}>
+        <View>
+          <TextView
+            style={[styles.logoText, { fontSize: getSize(Sizes.large)}]}
+            textColor={{color: Colors.red}}
+            fontFamily={FontStyles.blockBold}>
+            LOGO
+          </TextView>
+        </View>
+        <View style={styles.right}>
+          <TextView 
+          style={[styles.username, {fontSize: getSize(Sizes.large)}]}
+          textColor={{color: Colors.black}}
+          fontFamily={FontStyles.blockReg}>
+            Hello, {name}</TextView>
+          <TouchableOpacity onPress={() => console.log("Menu Pressed!")}>
+            <Icon 
+              iconName={'menu'}
+            />
           </TouchableOpacity>
-          <View style={styles.mainTextContainer}>
-            {/* Use userData here */}
-            <TextView
-              style={[styles.imgText, { fontSize: getSize(Sizes.largePlus) }]}
-              textColor={{ color: Colors.black }}
-              fontFamily={FontStyles.bold}>
-              Do Events Yourself
-            </TextView>
-            <TextView
-              style={[styles.imgText, { fontSize: getSize(Sizes.medium) }]}
-              textColor={{ color: Colors.grey }}
-              fontFamily={FontStyles.blockBold}>
-             {name}
-            </TextView>
-          </View>
-         
-          <View style={styles.categoryContainer}>
+        </View>
+        </View>
+        <TouchableOpacity 
+            style = {styles.touchable}
+            onPress={()=>{console.log("Event Pressed!")}}>
+        <ImageBackground style={styles.imgContainer} source={homeScreenImage}>
+        <View style={styles.textContainer}>
+          <TextView
+            style={[styles.imgText, {fontSize: getSize(Sizes.largeMedPlus)}]}
+            textColor={{ color: Colors.black }}
+            fontFamily={FontStyles.bold}>
+            Do Events Yourself
+          </TextView>
+          <TextView
+            style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
+            textColor={{ color: Colors.black }}
+            fontFamily={FontStyles.blockReg}>
+            Some Details about the Event
+          </TextView>
+        </View>
+        </ImageBackground>
+        </TouchableOpacity>
+        <View style={styles.mainTextContainer}>
+          <TextView
+            style={[styles.imgText, {fontSize: getSize(Sizes.largePlus)}]}
+            textColor={{ color: Colors.black }}
+            fontFamily={FontStyles.bold}>
+            Do Events Yourself
+          </TextView>
+          <TextView
+            style={[styles.imgText, {fontSize: getSize(Sizes.medium)}]}
+            textColor={{ color: Colors.grey }}
+            fontFamily={FontStyles.blockBold}>
+            Some Details about the Event
+          </TextView>
+        </View>
+        <View style={styles.categoryContainer}>
         {categories?.results.map((category: { description: string ; image: string; }, index: number) => (
              <TouchableComponent touchable="opacity" 
-           
               key={index}
               style={styles.touchableCategory}
               onPress={() => {
@@ -107,8 +131,6 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
               </TouchableComponent>
           ))}
       </View>
-        </>
-      
     </View>
   );
   
@@ -117,10 +139,11 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'flex-start',
     backgroundColor: '#ffffff',
-    maxWidth: Dimensions.get('screen').width,
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
   },
   header: {
     flexDirection: 'row',
@@ -139,13 +162,6 @@ const styles = StyleSheet.create({
   },
   username: {
     // Username styles here
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    paddingHorizontal: getSpace(Spaces.medium),
-    marginTop: getSpace(Spaces.medium),
   },
   menuIcon: {
     width: '20%',
@@ -177,6 +193,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: getSpace(Spaces.medium) 
   },
+  categoryContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   imgText: {
     textAlign: 'left',
   },
@@ -194,7 +216,7 @@ const styles = StyleSheet.create({
   touchableCategory: {
     width: Dimensions.get('screen').width/3,
     height: Dimensions.get('screen').height/6,
-    paddingHorizontal: getSpace(Spaces.medium)
+    paddingHorizontal: getSpace(Spaces.small)
   },
   gridItem: {
     // flex: 1,

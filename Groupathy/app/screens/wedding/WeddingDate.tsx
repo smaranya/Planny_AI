@@ -8,6 +8,9 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Button } from '../../components/molecules/Button';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import TouchableComponent from '../../components/molecules/TouchableComponent';
+import { Header } from '../../components/molecules/Header';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>;
@@ -49,6 +52,13 @@ const WeddingDate: React.FC<MyComponentProps> = ({ navigation }) => {
       },
       replace: false,
     });
+  };
+
+  const formatDate = (date: Date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   };
 
   return (
