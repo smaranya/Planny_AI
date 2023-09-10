@@ -1,6 +1,6 @@
 import { TextView } from '../../components/atoms/TextView';
 import React, { useEffect, useState } from 'react'
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { Animated, Dimensions, FlatList, ScrollView, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
@@ -10,7 +10,6 @@ import navigateTo from '../../navigation/navigateTo';
 import Loader from '../../components/compounds/Loader';
 import { Icon } from '../../components/atoms/Icon';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
-import HalfCard from '../../components/wrappers/HalfCard';
 import Card from '../../components/compounds/Card';
 
 type MyComponentProps = {
@@ -30,9 +29,42 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
     });
   };
 
+  const data = [
+    { id: '1', title: 'Haldi', cost: '100', guestCount: '2', imageSource: require('../../assets/wedding.png') },
+    { id: '2', title: 'Mehendi', cost: '150', guestCount: '3', imageSource: require('../../assets/wedding.png') },
+    { id: '3', title: 'Sangeet', cost: '200', guestCount: '4', imageSource: require('../../assets/wedding.png')}
+  ];
+
+  const [loading, setLoading] = useState(true);
+
+  const [visibleCards, setVisibleCards] = useState<number>(-1);
+
+  useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      setLoading(false);
+      setVisibleCards(0);
+    }, 6000);
+
+    return () => clearTimeout(loadingTimer);
+  }, []);
+
+  useEffect(() => {
+    if (visibleCards >= 0 && visibleCards < data.length - 1) {
+      const timer = setTimeout(() => {
+        setVisibleCards((prevCount) => prevCount + 1);
+      }, 500);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [visibleCards]);
+
   return (
     <View style={styles.outer}>
-        <Loader />
+        <View style={styles.container}>
+        {loading? 
+        (<Loader />) :(
         <View style={styles.container}>
         <View style={styles.header}>
         <View>
@@ -59,19 +91,39 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
         <TextView style={styles.title}>
           Let's Plan the Wedding
         </TextView>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
         <View style={styles.cards}>
-        <Card
-        imageSource={require('../../assets/wedding.png')}
-        title="Haldi"
-        cost="30000"
-        guestCount="100 Guests"
-        onPress={() => {
-          // Handle the "More Details" button click here
-        }}
-      />
+        {/* <FlatList
+        data={data.slice(0, visibleCards + 1)}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Card
+            imageSource={item.imageSource}
+            title={item.title}
+            cost={item.cost}
+            guestCount={item.guestCount}
+            onPress={() => {
+              // Handle card press
+            }}
+          />
+        )}
+        /> */}
+         <FlatList
+              data={data.slice(0, visibleCards + 1)}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => (
+                  <Card
+                    imageSource={item.imageSource}
+                    title={item.title}
+                    cost={item.cost}
+                    guestCount={item.guestCount}
+                    onPress={handleNavigate}
+                  />
+                )}
+          />
         </View>
-        </ScrollView>
+        {/* </ScrollView> */}
+        </View>)}
         </View>
     </View>
 
@@ -80,7 +132,7 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
 
 const styles = StyleSheet.create({
     outer: {
-        flex: 1,
+        flex:1,
         justifyContent : 'center', 
         alignItems: 'center'
     },
@@ -122,7 +174,9 @@ const styles = StyleSheet.create({
       marginVertical: getSpace(Spaces.largePlus)
     },
     cards: {
-      margin: getSpace(Spaces.small),
+      margin: getSpace(Spaces.medium),
+      width: '100%',
+      height: '100%',
     }
 })
 

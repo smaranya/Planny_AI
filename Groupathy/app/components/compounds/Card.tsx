@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, ImageSourcePropType, TextStyle, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, ImageSourcePropType, TextStyle, Dimensions, Platform } from 'react-native';
 import { TextView } from '../atoms/TextView';
 import TouchableComponent from '../molecules/TouchableComponent';
 import { Spaces, getSpace } from '../../styles/spaces';
@@ -7,6 +7,7 @@ import { FontStyles, getName } from '../../styles/fonts/names';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { Icon } from '../atoms/Icon';
+import * as Animatable from 'react-native-animatable'
 
 interface CardProps {
   imageSource: ImageSourcePropType;
@@ -18,18 +19,20 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ imageSource, title, cost, guestCount, onPress }) => {
   return (
-    <View style={styles.card}>
+    <Animatable.View animation="slideInLeft" duration={500}>
+      <View style={styles.card}>
       <Image source={imageSource} style={styles.image} />
       <View style={styles.cardDetails}>
         <TextView style={styles.title}>{title}</TextView>
         <TextView style={styles.description}>{'\u20B9'}{cost}</TextView>
-        <TextView style={[styles.description, {color: getColor({color: Colors.grey})}]}>{guestCount}</TextView>
+        <TextView style={[styles.description, {color: getColor({color: Colors.grey})}]}>{guestCount} Guests</TextView>
         <TouchableComponent touchable="opacity" style={styles.button} onPress={onPress}>
           <TextView style={styles.buttonText}>More Details</TextView>
           <Icon iconName="navigate-next"/>
         </TouchableComponent>
       </View>
-    </View>
+      </View>
+    </Animatable.View>
   );
 };
 
@@ -37,13 +40,15 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     borderRadius: getSize(Sizes.small),
-    width: '100%',
-    height: Dimensions.get('screen').height/5,
+    width: '98%',
+    height: Dimensions.get('screen').height/6,
     padding: getSpace(Spaces.small),
+    marginBottom: getSpace(Spaces.small),
+    backgroundColor: getColor({color: Colors.white}),
+    elevation: getSize(Sizes.xxxSmall),
   },
   image: {
-    width: '50%',
-    height: '100%',
+    width: '25%',
     borderRadius: getSize(Sizes.small),
     marginRight: getSpace(Spaces.medium)
   },
