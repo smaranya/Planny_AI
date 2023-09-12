@@ -7,9 +7,16 @@ import App from './app/index';
 import {name as appName} from './app.json';
 import { enableScreens } from 'react-native-screens';
 import { firebase } from '@react-native-firebase/app';
-
+import PushNotification from "react-native-push-notification";
 enableScreens();
+PushNotification.configure({
 
+  onNotification: function (notification) {
+    console.log("NOTIFICATION:", notification);
+  },
+
+  requestPermissions: Platform.OS === 'ios',
+});
     const firebaseConfig = {
       apiKey: "AIzaSyCMmOUzhomPzEiHY0LIIlkG4QnedzmzJF8",
       authDomain: "groupathy-f41d3.firebaseapp.com",
