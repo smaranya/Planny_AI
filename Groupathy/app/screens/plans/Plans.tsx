@@ -21,7 +21,7 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/wedding/date', // Replace with the desired path
+      path: '/plans/details', // Replace with the desired path
       params: {
         // Include any additional parameters you need
       },
@@ -93,21 +93,6 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
         </TextView>
         {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
         <View style={styles.cards}>
-        {/* <FlatList
-        data={data.slice(0, visibleCards + 1)}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Card
-            imageSource={item.imageSource}
-            title={item.title}
-            cost={item.cost}
-            guestCount={item.guestCount}
-            onPress={() => {
-              // Handle card press
-            }}
-          />
-        )}
-        /> */}
          <FlatList
               data={data.slice(0, visibleCards + 1)}
               keyExtractor={(item) => item.id}

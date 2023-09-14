@@ -16,5 +16,6 @@ export default Object.freeze({
   LOGIN: 'LOGIN',
   SIGNUP: 'SIGNUP',
   OTP: 'OTP',
-  PLANS: 'PLANS'
+  PLANS: 'PLANS',
+  DETAILS: 'DETAILS'
 });
