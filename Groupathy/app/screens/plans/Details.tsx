@@ -65,6 +65,7 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
         </View>
         </View>
     {/* <View style={styles.card}> */}
+    <ScrollView style={{width: '100%'}}>
     <View style={styles.card}>
         <Image
         source={require('../../assets/wedding.png')}
@@ -80,7 +81,6 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
         </View>
       </View>
     </View>
-    <ScrollView style={{width: '100%'}}>
     <View style={{width: '100%', justifyContent: 'center', borderStyle: 'dotted', borderBottomWidth: getSize(Sizes.minimal)}}>
     <View style={styles.valueContainer}>
         <View>
@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         borderRadius: getSize(Sizes.large),
         backgroundColor: '#FFFFFF',
-        margin: getSpace(Spaces.medium),
         elevation: getSize(Sizes.small),
       },
       header: {
