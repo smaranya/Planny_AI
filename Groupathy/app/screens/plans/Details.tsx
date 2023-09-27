@@ -20,7 +20,7 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/plans/details', // Replace with the desired path
+      path: '/plans/details/budget', // Replace with the desired path
       params: {
         // Include any additional parameters you need
       },
@@ -97,9 +97,14 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
         </TouchableComponent>
         </View>
     </View>
-      <TouchableComponent touchable="opacity" onPress={()=>(console.log("Send Invitation"))} style={styles.inviteButton}>
+    <View style={styles.valueContainer}>
+    <TouchableComponent touchable="opacity" onPress={()=>(console.log("Send Invitation"))} style={styles.inviteButton}>
         <TextView style={{color: getColor({color: Colors.white})}}>Send Invitation</TextView>
       </TouchableComponent>
+      <TouchableComponent touchable="opacity" onPress={handleNavigate} style={styles.inviteButton}>
+        <TextView style={{color: getColor({color: Colors.white})}}>Checkout</TextView>
+      </TouchableComponent>
+    </View>
     </View>
       <View style={styles.iconContainer}>
         <View style={styles.iconGroup}>

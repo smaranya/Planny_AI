@@ -22,6 +22,7 @@ import SignUp from '../screens/home/SignUp';
 import OTP from '../screens/home/OTP';
 import Plans from '../screens/plans/Plans';
 import Details from '../screens/plans/Details';
+import Budget from '../screens/plans/Budget';
 
 
 export type Route = {
@@ -116,6 +117,11 @@ const appRoutes = [
     name: RouteName.DETAILS,
     regexs:['/plans/details'],
     screen: Details
+  },
+  {
+    name: RouteName.BUDGET,
+    regexs:['/plans/details/budget'],
+    screen: Budget
   },
   {
     name: RouteName.ILLNESS_DETAIL,
