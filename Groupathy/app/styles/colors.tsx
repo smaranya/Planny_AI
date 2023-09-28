@@ -20,7 +20,8 @@ const blueberry = '#282C3F',
   graphFill = '#00C2CB',
   onboardingButton = '#248AE8',
   grey = '#9C9C9C',
-  red = '#912A43';
+  red = '#912A43',
+  pink = '#FFB0B0';
 
 export enum Colors {
   primaryColor = 1,
@@ -43,7 +44,8 @@ export enum Colors {
   rightGradient,
   graphFill,
   red,
-  grey
+  grey,
+  pink
 }
 
 const colors = {
@@ -67,7 +69,8 @@ const colors = {
   [Colors.rightGradient]: rightGradient,
   [Colors.graphFill]: graphFill,
   [Colors.grey]: grey,
-  [Colors.red]: red
+  [Colors.red]: red,
+  [Colors.pink]: pink
 };
 
 const defaultColor: Colors = Colors.secondaryColor;

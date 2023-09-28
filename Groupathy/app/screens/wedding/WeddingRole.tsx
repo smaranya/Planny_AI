@@ -35,7 +35,7 @@ const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
   const handleNavigate = () => {
     navigateTo({
       navigation,
-      path: '/wedding/date',
+      path: '/plans',
       params: {
         name: name,
         eventName: eventName,

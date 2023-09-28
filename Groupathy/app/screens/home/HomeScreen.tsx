@@ -12,6 +12,7 @@ import { HomeScreenResponse, User } from './api/Models';
 import { fetchUserData, loginUser } from './api/ApiCalls';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { Icon } from '../../components/atoms/Icon';
+import { handleScheduleNotification,createChannels } from '../wedding/notification.android';
 type MyComponentProps = {
   navigation: NavigationProp<any>;
 };
@@ -40,6 +41,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
     };
 
     fetchData();
+    createChannels();
   }, []);
   //console.log(userData);
   const handleNavigate = () => {
@@ -131,6 +133,9 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
               </TouchableComponent>
           ))}
       </View>
+      <TouchableComponent onPress={()=>{handleScheduleNotification('Hello','World')}}>
+        Notification 
+      </TouchableComponent>
     </View>
   );
   

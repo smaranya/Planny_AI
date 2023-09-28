@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Animated, Dimensions, FlatList, ScrollView, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
-import { FontStyles } from '../../styles/fonts/names';
+import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
@@ -16,7 +16,7 @@ type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
 
-const Plans: React.FC<MyComponentProps> = ({navigation}) => {
+const Budget: React.FC<MyComponentProps> = ({navigation}) => {
 
   const handleNavigate = () => {
     navigateTo({
@@ -30,42 +30,18 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
   };
 
   const data = [
-    { id: '1', title: 'Haldi', cost: '100', guestCount: '2', imageSource: require('../../assets/wedding.png') },
-    { id: '2', title: 'Mehendi', cost: '150', guestCount: '3', imageSource: require('../../assets/wedding.png') },
-    { id: '3', title: 'Sangeet', cost: '200', guestCount: '4', imageSource: require('../../assets/wedding.png')}
+    { id: '1', title: 'Venue', cost: '8000' },
+    { id: '2', title: 'Clothing', cost: '2000' },
+    { id: '3', title: 'Photography', cost: '1000' },
+    { id: '4', title: 'DJ', cost: '1000' },
+    { id: '5', title: 'Transport', cost: '1000' },
+    { id: '6', title: 'Total', cost: '100000' }
   ];
 
-  const [loading, setLoading] = useState(true);
-
-  const [visibleCards, setVisibleCards] = useState<number>(-1);
-
-  useEffect(() => {
-    const loadingTimer = setTimeout(() => {
-      setLoading(false);
-      setVisibleCards(0);
-    }, 6000);
-
-    return () => clearTimeout(loadingTimer);
-  }, []);
-
-  useEffect(() => {
-    if (visibleCards >= 0 && visibleCards < data.length - 1) {
-      const timer = setTimeout(() => {
-        setVisibleCards((prevCount) => prevCount + 1);
-      }, 500);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [visibleCards]);
 
   return (
-    <View style={styles.outer}>
-        <View style={styles.container}>
-        {loading? 
-        (<Loader />) :(
-        <View style={styles.container}>
+    // <View style={styles.outer}>
+    <View style={styles.container}>
         <View style={styles.header}>
         <View>
           <TextView
@@ -89,28 +65,25 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
         </View>
         </View>
         <TextView style={styles.title}>
-          Let's Plan the Wedding
+          Budget Detailing Out
         </TextView>
-        {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
-        <View style={styles.cards}>
-         <FlatList
-              data={data.slice(0, visibleCards + 1)}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item, index }) => (
-                  <Card
-                    imageSource={item.imageSource}
-                    title={item.title}
-                    cost={item.cost}
-                    guestCount={item.guestCount}
-                    onPress={handleNavigate}
-                  />
-                )}
-          />
+        <View style={styles.card}>
+            <FlatList
+                data={data}
+                renderItem={({ item , index}) => (
+                    <View style={[styles.row, index===data.length -1 && styles.finalRow]}>
+                      <TextView style={[styles.text, index===data.length -1 && styles.textFinal]}>{item.title}</TextView>
+                      <TextView style={[styles.text, index===data.length -1 && styles.textFinal]}>{item.cost}</TextView>
+                    </View>
+                  )}
+                keyExtractor={(item) => item.id.toString()}
+            />
         </View>
-        {/* </ScrollView> */}
-        </View>)}
-        </View>
+        <TouchableComponent touchable="opacity" onPress={handleNavigate} style={styles.inviteButton}>
+        <TextView style={{color: getColor({color: Colors.white})}}>Checkout</TextView>
+      </TouchableComponent>
     </View>
+    // </View>
 
   )
 };
@@ -119,19 +92,13 @@ const styles = StyleSheet.create({
     outer: {
         flex:1,
         justifyContent : 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
     },
     container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
         width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height
-    },
-    scrollContainer: {
-      flexGrow: 1,
-      justifyContent: 'flex-start',
-      width: Dimensions.get('screen').width,
     },
     header: {
         flexDirection: 'row',
@@ -158,11 +125,46 @@ const styles = StyleSheet.create({
       color: getColor({color: Colors.red}),
       marginVertical: getSpace(Spaces.largePlus)
     },
-    cards: {
-      margin: getSpace(Spaces.medium),
-      width: '100%',
-      height: '100%',
-    }
+    card: {
+        flex: 0.8,
+        borderColor: getColor({color: Colors.grey}),
+        borderWidth: getSize(Sizes.minimal),
+        marginHorizontal: getSpace(Spaces.large),
+        borderRadius: getSize(Sizes.large)
+    },
+    text: {
+        fontSize: getSize(Sizes.largeMedPlus),
+        fontFamily: getName(FontStyles.blockReg)
+    },
+    textFinal: {
+        fontSize: getSize(Sizes.large),
+        fontFamily: getName(FontStyles.blockBold)
+    },
+    finalRow: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: getSpace(Spaces.xxLarge),
+        backgroundColor: getColor({color: Colors.critical}),
+    },
+    row: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: getSpace(Spaces.xxLarge),
+        paddingVertical: getSpace(Spaces.medium)
+    },
+    inviteButton: {
+        width: getSize(Sizes.xxMega), 
+        backgroundColor: getColor({color: Colors.red}), 
+        padding: getSpace(Spaces.medium), 
+        borderRadius: getSize(Sizes.large), 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginVertical: getSpace(Spaces.medium)
+    },
 })
 
-export default Plans;
+export default Budget;
