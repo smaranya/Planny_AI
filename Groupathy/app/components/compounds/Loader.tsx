@@ -8,7 +8,7 @@ import { Colors, getColor } from '../../styles/colors';
 import { Spaces, getSpace } from '../../styles/spaces';
 
 const Loader: React.FC = () => {
-  const loadingTexts: string[] = ['Going through your choices...', 'Fetching the perfect plan for you...', 'Almost there...'];
+  const loadingTexts: string[] = ['Crafting the Perfect Day, Piece by Piece...','Going through your choices...', 'Fetching the perfect plan for you...'];
   const [loadingText, setLoadingText] = useState<string>(loadingTexts[0]);
   const [showLoader, setShowLoader] = useState<boolean>(true);
 
@@ -24,7 +24,7 @@ const Loader: React.FC = () => {
 
     const timeoutId = setTimeout(() => {
         setShowLoader(false);
-      }, 5000);
+      }, 6000);
 
       return () => {
         clearInterval(intervalId);
@@ -50,12 +50,13 @@ const Loader: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'absolute',
     width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: getColor({color: Colors.white}),
     zIndex: 999
   },
   logoText: {
