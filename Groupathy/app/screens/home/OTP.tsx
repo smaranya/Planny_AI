@@ -33,7 +33,7 @@ const OTP : React.FC<MyComponentProps> = ({navigation}) => {
   
   const handleNavigate = async() => {
     const value = await verifyOTP(phone_number,OTPN);
-    if (value.data.Details === "OTP Matched") {
+    if (value.Data.Code === 200) {
       navigateTo({
         navigation,
         path: '/home',

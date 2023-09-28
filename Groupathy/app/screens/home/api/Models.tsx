@@ -18,13 +18,13 @@ export type SignUp = {
         phone_number : string,
         name: string
     },
-    status : string,
-    msg: string
+    Status : Number,
+    Msg: string
 }
 
 export type UserData ={
-    data: {
-        Details: string;
+    Data: {
+        Code: Number;
       };
       user: {
         name: string;

@@ -45,7 +45,7 @@ const SignUp: React.FC<MyComponentProps> = ({ navigation }) => {
       console.log(data);
       const response = await signUpUser(data);
       
-      if (response.msg === 'Register successfully!') {
+      if (response.Msg === 'Register successfully!') {
         // If successful, navigate to OTP screen
                 navigateTo({
                   navigation,
@@ -57,8 +57,6 @@ const SignUp: React.FC<MyComponentProps> = ({ navigation }) => {
                   replace: false,
                 });
                  
-      } else {
-        setResult(response);
       }
     } catch (error) {
       console.error('Error signing up:', error);

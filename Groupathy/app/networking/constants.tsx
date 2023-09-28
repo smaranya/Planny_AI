@@ -20,7 +20,7 @@ export enum PostEndpoints {
   CHATGPT_POST = "chat-gpt/post",
   SIGNUP_POST = "api/account/register/",
   LOGIN_POST = "api/account/login/",
-  VERIFY_OTP = "verifyotp/<str:phone>/<str:session_id>/<str:otp>/"
+  VERIFY_OTP = "verifyotp/<str:phone>/<str:otp>/"
 }
 
 export enum HTTP_CODES {
