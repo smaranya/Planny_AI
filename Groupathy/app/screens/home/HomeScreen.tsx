@@ -32,6 +32,7 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("HOME SCREEEN")
         const data =  await fetchUserData();
         setCategories(data);
         setIsLoading(false);
@@ -133,9 +134,6 @@ const HomeScreen : React.FC<MyComponentProps> = ({navigation}) => {
               </TouchableComponent>
           ))}
       </View>
-      <TouchableComponent onPress={()=>{handleScheduleNotification('Hello','World')}}>
-        Notification 
-      </TouchableComponent>
     </View>
   );
   

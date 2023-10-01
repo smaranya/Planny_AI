@@ -27,11 +27,11 @@ interface Params {
   selectedRole: string; // Store the selected role here
 }
 
+  // console.log(name);
 const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
   const background = require('../../assets/choicebg.png');
-  const route = useRoute();
-  const { name, eventName, formData, selectedRole } = route.params as Params;
   
+ 
   const handleNavigate = () => {
     navigateTo({
       navigation,
@@ -48,7 +48,9 @@ const WeddingRole: React.FC<MyComponentProps> = ({ navigation }) => {
 
   // State to track the selected role
   const [selectedButton, setSelectedButton] = useState('');
-
+  const route = useRoute();
+  const { name, eventName, formData, selectedRole } = route.params as Params;
+  console.log(name);
   // Function to handle button selection
   const handleButtonSelect = (role: string) => {
     setSelectedButton(role);

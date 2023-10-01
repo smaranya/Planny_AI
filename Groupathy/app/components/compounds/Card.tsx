@@ -14,7 +14,7 @@ interface CardProps {
   title: string;
   cost: string;
   guestCount: string;
-  onPress: () => void;
+  onPress: (eventData: any) => void;
 }
 
 const Card: React.FC<CardProps> = ({ imageSource, title, cost, guestCount, onPress }) => {

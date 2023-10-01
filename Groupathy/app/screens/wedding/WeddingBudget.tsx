@@ -8,7 +8,7 @@ import { Spaces, getSpace } from '../../styles/spaces';
 import { Button } from '../../components/molecules/Button';
 import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
-import { postUserData } from './api/ApiCall';
+
 import { Header } from '../../components/molecules/Header';
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
@@ -35,18 +35,17 @@ const WeddingBudget: React.FC<MyComponentProps> = ({navigation}) => {
   
  
   const data = {
-
     formData,name,eventName,selectedRole
   }
  
   const handleNavigate = () => {
-    console.log(data);
-    postUserData(data);
+    console.log(name);
     navigateTo({
       navigation,
-      path: '/plans', // Replace with the desired path
+      path: '/plans',
       params: {
-        
+        name : name,
+        budget : formData.budget
       },
       replace: false, // Set to true if you want to use replace navigation
     });

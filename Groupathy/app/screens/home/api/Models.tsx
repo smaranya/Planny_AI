@@ -19,15 +19,20 @@ export type SignUp = {
         name: string
     },
     Status : Number,
-    Msg: string
+    msg: string
 }
 
 export type UserData ={
-    Data: {
-        Code: Number;
+    data: {
+        code: Number;
       };
       user: {
         name: string;
         phone_number: string;
       };
+}
+export type OTPresponse = {
+    data:{
+        OTP : string,
+    }
 }

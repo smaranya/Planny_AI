@@ -16,9 +16,10 @@ import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Header } from '../../components/molecules/Header';
-import {  signUpUser } from './api/ApiCalls';
+import {  getOTP, signUpUser } from './api/ApiCalls';
 import { TextView } from '../../components/atoms/TextView';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
+import { handleScheduleNotification } from '../wedding/notification.android';
 
 
 type MyComponentProps = {
@@ -40,12 +41,12 @@ const SignUp: React.FC<MyComponentProps> = ({ navigation }) => {
 
   const handleNavigate = async () => {
     setLoading(true); // Set loading to true when the button is clicked
-
+    console.log("Navigate")
     try {
       console.log(data);
       const response = await signUpUser(data);
-      
-      if (response.Msg === 'Register successfully!') {
+      if ( response.msg === "Register successfully!") {
+  
         // If successful, navigate to OTP screen
                 navigateTo({
                   navigation,
@@ -137,7 +138,11 @@ const SignUp: React.FC<MyComponentProps> = ({ navigation }) => {
       style={[styles.button]}
       touchableProps={{
         touchable: 'highLight',
-        onPress: handleNavigate,
+        onPress: ()=> {
+          console.log("Clicked");
+          setLoading(true);
+          handleNavigate();
+        },
       }}
       textProps={{
         textColor: { color: Colors.black },

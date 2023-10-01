@@ -1,7 +1,7 @@
 import ApiRequest from '../../../networking/ApiRequest';
 import { GetEndpoints, PostEndpoints } from '../../../networking/constants';
-import { HomeScreenResponse ,User,SignUp, UserData} from './Models';
-import { baseWebUrl } from '../../../networking/ApiRequest';
+import { HomeScreenResponse ,User,SignUp, UserData,OTPresponse} from './Models';
+
 export const fetchUserData = (): Promise<HomeScreenResponse> => {
   const getUsersEndpoint = GetEndpoints.DASHBOARD;
 
@@ -10,8 +10,7 @@ export const fetchUserData = (): Promise<HomeScreenResponse> => {
     ApiRequest(getUsersEndpoint, 'GET')
       .then((response: any) => {
         console.log("API call successful!"); 
-        // console.log("Results:", response.results);
-        
+        console.log("Results:", response.results);
         resolve(response as HomeScreenResponse); 
       })
       .catch((error: any) => {
@@ -49,6 +48,7 @@ export const signUpUser = (data: any): Promise<SignUp> => {
       .then((response: any) => {
         console.log("POST request successful!");
         // console.log("Response:", response);
+        getOTP
         resolve(response as SignUp);
       })
       .catch((error: any) => {
@@ -61,7 +61,7 @@ export const signUpUser = (data: any): Promise<SignUp> => {
 
  
 
-    export const getOTP = (phoneNumber: string): Promise<JSON> => {
+    export const getOTP = (phoneNumber: string): Promise<OTPresponse> => {
       // Construct the path with the phoneNumber parameter
       const path = `api/account/sendotp/${phoneNumber}/`;
     
@@ -72,7 +72,7 @@ export const signUpUser = (data: any): Promise<SignUp> => {
           .then((response: any) => {
             console.log("GET OTP Successful");
             // console.log("Response", response);
-            resolve(response as JSON);
+            resolve(response as OTPresponse);
           })
           .catch((error: any) => {
             console.log("Error getting OTP", error);
@@ -91,7 +91,7 @@ export const signUpUser = (data: any): Promise<SignUp> => {
         ApiRequest(path, 'GET')
           .then((response: any) => {
             console.log("Verify OTP Successful");
-            // console.log("Response", response);
+             console.log("Response", response);
             resolve(response as UserData);
           })
           .catch((error: any) => {

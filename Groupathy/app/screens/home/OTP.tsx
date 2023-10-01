@@ -12,6 +12,7 @@ import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Header } from '../../components/molecules/Header';
 import { getOTP, verifyOTP } from './api/ApiCalls';
+import { handleScheduleNotification } from '../wedding/notification.android';
 
 type MyComponentProps = {
   navigation: NavigationProp<any>; 
@@ -23,22 +24,40 @@ const OTP : React.FC<MyComponentProps> = ({navigation}) => {
     phone_number:string  
   }
   const [OTPN, setOTP] = useState('');
+  
   const [otpInvalid, setOTPInvalid] = useState(false);
   const route = useRoute();
   const {name,phone_number} = route.params as Params;
-  getOTP(phone_number);
+ 
   const hideKeyboard = () => {
     Keyboard.dismiss();
   };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const otp = await getOTP(phone_number);
+      
+        handleScheduleNotification('OTP', otp.data.OTP);
+      } catch (error) {
+        // Handle any errors that occurred during the async operations
+        console.error("Error fetching OTP:", error);
+      }
+    }
+  
+    fetchData();
+  }, [phone_number]);
+  
   
   const handleNavigate = async() => {
+    
     const value = await verifyOTP(phone_number,OTPN);
-    if (value.Data.Code === 200) {
+    const loginName = value.user.name;
+    if (value.data.code === 200) {
       navigateTo({
         navigation,
         path: '/home',
         params: {
-          name: name,
+          name: name || loginName,
           phone_number: phone_number,
         },
         replace: false,
@@ -83,7 +102,9 @@ const OTP : React.FC<MyComponentProps> = ({navigation}) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: () =>{
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},

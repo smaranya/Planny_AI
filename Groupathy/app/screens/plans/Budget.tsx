@@ -5,7 +5,7 @@ import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles, getName } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import Loader from '../../components/compounds/Loader';
 import { Icon } from '../../components/atoms/Icon';
@@ -15,7 +15,21 @@ import Card from '../../components/compounds/Card';
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
-
+interface Params{
+  jsonData : EVENTS,
+  name : String
+}
+interface EVENTS{
+  events : ITEM[]
+}
+interface ITEM{
+  key: number;
+  event: string;
+  date: string;
+  venue: string;
+  time: string;
+  budget: number;
+}
 const Budget: React.FC<MyComponentProps> = ({navigation}) => {
 
   const handleNavigate = () => {
@@ -29,14 +43,8 @@ const Budget: React.FC<MyComponentProps> = ({navigation}) => {
     });
   };
 
-  const data = [
-    { id: '1', title: 'Venue', cost: '8000' },
-    { id: '2', title: 'Clothing', cost: '2000' },
-    { id: '3', title: 'Photography', cost: '1000' },
-    { id: '4', title: 'DJ', cost: '1000' },
-    { id: '5', title: 'Transport', cost: '1000' },
-    { id: '6', title: 'Total', cost: '100000' }
-  ];
+  const route = useRoute();
+  const {jsonData,name} = route.params as Params;
 
 
   return (
@@ -51,32 +59,21 @@ const Budget: React.FC<MyComponentProps> = ({navigation}) => {
             LOGO
           </TextView>
         </View>
-        <View style={styles.right}>
-          <TextView 
-          style={[styles.username, {fontSize: getSize(Sizes.large)}]}
-          textColor={{color: Colors.black}}
-          fontFamily={FontStyles.blockReg}>
-            Hello, User</TextView>
-          <TouchableComponent touchable="opacity" onPress={() => console.log("Menu Pressed!")}>
-            <Icon 
-              iconName={'menu'}
-            />
-          </TouchableComponent>
-        </View>
+       
         </View>
         <TextView style={styles.title}>
           Budget Detailing Out
         </TextView>
         <View style={styles.card}>
             <FlatList
-                data={data}
+                data={jsonData.events}
                 renderItem={({ item , index}) => (
-                    <View style={[styles.row, index===data.length -1 && styles.finalRow]}>
-                      <TextView style={[styles.text, index===data.length -1 && styles.textFinal]}>{item.title}</TextView>
-                      <TextView style={[styles.text, index===data.length -1 && styles.textFinal]}>{item.cost}</TextView>
+                    <View style={[styles.row, index===jsonData.events.length -1 && styles.finalRow]}>
+                      <TextView style={[styles.text, index===jsonData.events.length -1 && styles.textFinal]}>{item.event}</TextView>
+                      <TextView style={[styles.text, index===jsonData.events.length -1 && styles.textFinal]}>{item.budget}</TextView>
                     </View>
                   )}
-                keyExtractor={(item) => item.id.toString()}
+                // keyExtractor={(item) => item.toString()}
             />
         </View>
         <TouchableComponent touchable="opacity" onPress={handleNavigate} style={styles.inviteButton}>

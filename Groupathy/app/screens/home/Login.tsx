@@ -15,10 +15,10 @@ import TouchableComponent from '../../components/molecules/TouchableComponent';
 import { NavigationProp } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Header } from '../../components/molecules/Header';
-import { loginUser, verifyOTP } from './api/ApiCalls';
+import { getOTP, loginUser, verifyOTP } from './api/ApiCalls';
 import { TextView } from '../../components/atoms/TextView';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
-
+import { handleScheduleNotification } from '../wedding/notification.android';
 type MyComponentProps = {
   navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
@@ -36,7 +36,7 @@ const Login: React.FC<MyComponentProps> = ({ navigation }) => {
       navigation,
       path: '/signup/otp', 
       params: {
-        phoneNumber : phoneNumber
+        phone_number : phoneNumber
       },
       replace: false, 
     });
@@ -96,7 +96,10 @@ const Login: React.FC<MyComponentProps> = ({ navigation }) => {
                 style={[styles.button]}
                 touchableProps={{
                     touchable: 'highLight',
-                    onPress: handleNavigate,
+                    onPress: async()=>{
+                      
+                      handleNavigate()
+                    },
                 }}
                 textProps={{
                   textColor: {color: Colors.black},

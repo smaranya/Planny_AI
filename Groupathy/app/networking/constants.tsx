@@ -17,7 +17,7 @@ export enum PostEndpoints {
   GROUP_QUESTIONNAIRE_RESULT = 'user/questionnaire/analytics/',
   SEND_EMAIL = 'user/sendemail/',
   CREATE_USER = 'create/user/',
-  CHATGPT_POST = "chat-gpt/post",
+  GPT_POST = "api/plan/gpt-response/",
   SIGNUP_POST = "api/account/register/",
   LOGIN_POST = "api/account/login/",
   VERIFY_OTP = "verifyotp/<str:phone>/<str:otp>/"

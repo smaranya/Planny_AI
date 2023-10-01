@@ -1,7 +1,7 @@
 import { TextView } from '../../components/atoms/TextView';
-import React, { useState } from 'react'
-import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native'
-import { NavigationProp } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react'
+import { Dimensions, Image, ScrollView, Share, StyleSheet, View } from 'react-native'
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import { Icon } from '../../components/atoms/Icon';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
@@ -9,27 +9,67 @@ import { FontStyles, getName } from '../../styles/fonts/names';
 import { Colors, getColor } from '../../styles/colors';
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Spaces, getSpace } from '../../styles/spaces';
+import { WeddingPlanningResponse,WeddingEvent } from '../wedding/api/Model';
 import Card from '../../components/compounds/Card';
+import dynamicLinks from '@react-native-firebase/dynamic-links'
 
 type MyComponentProps = {
     navigation: NavigationProp<any>;
 };
+interface Params  {
+  event: ITEM,
+  jsonData : EVENTS,
+  name : string
+}
+interface EVENTS{
+  events : ITEM[]
+}
+interface ITEM{
+  key: number;
+  event: string;
+  date: string;
+  venue: string;
+  time: string;
+  budget: number;
+}
 
 const Details: React.FC<MyComponentProps> = ({navigation}) => {
 
   const handleNavigate = () => {
+    
     navigateTo({
       navigation,
-      path: '/plans/details/budget', // Replace with the desired path
+      path: '/plans/details/budget', 
       params: {
-        // Include any additional parameters you need
+        name:name,
+        jsonData :  jsonData
       },
-      replace: false, // Set to true if you want to use replace navigation
+      replace: false, 
     });
   };
-
+  const [invitation, setInvitation] = useState<string>('')
   const [value, setValue] = useState(0);
-
+  const route = useRoute();
+  const {event,jsonData,name} = route.params as Params;
+  const generateLink = async () => {
+    try {
+      const link = await dynamicLinks().buildShortLink({
+        link: `https://planny.com/`,
+        domainUriPrefix: 'https://aiktech.page.link/',
+        android: {
+          packageName: 'com.groupathy',
+        },
+      }, dynamicLinks.ShortLinkType.DEFAULT);
+      
+      console.log('link:', link);
+      
+      return link; // Return the link as a promise result
+    } catch (error) {
+      console.log('Generating Link Error:', error);
+      throw error; // Rethrow the error to handle it elsewhere if needed
+    }
+  };
+  console.log("Data",jsonData.events);
   const increaseValue = () => {
     setValue(value + 1);
   };
@@ -39,6 +79,46 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
       setValue(value - 1);
     }
   };
+//   useEffect(()=>{
+// getSingleProduct()
+//   },[])
+//   const getSingleProduct = async () => {
+//     try {
+//         const response = await fetch("https://groupathy.page.link/welcome");
+        
+//         if (!response.ok) {
+//             throw new Error(`Request failed with status: ${response.status}`);
+//         }
+
+//         const data = await response.text(); 
+        
+        
+//         if (typeof data === 'string') {
+//           setInvitation(data);
+//       }  else {
+//             // Handle the case where data is undefined or empty
+//             console.log('Data is empty or undefined');
+//         }
+//     } catch (error) {
+//         console.log('Error:', error);
+//     }
+// };
+
+
+
+
+const sendInvitaion = async () => {
+
+  try {
+    const getLink = await generateLink();
+    console.log("Link ",getLink) // Use await here to wait for the promise to resolve
+    Share.share({
+      message: getLink
+    });
+  } catch (error) {
+    console.log('Sharing Error:', error);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -51,18 +131,7 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
             LOGO
           </TextView>
         </View>
-        <View style={styles.right}>
-          <TextView 
-          style={[styles.username, {fontSize: getSize(Sizes.large)}]}
-          textColor={{color: Colors.black}}
-          fontFamily={FontStyles.blockReg}>
-            Hello, </TextView>
-          <TouchableComponent onPress={() => console.log("Menu Pressed!")}>
-            <Icon 
-              iconName={'menu'}
-            />
-          </TouchableComponent>
-        </View>
+      
         </View>
     {/* <View style={styles.card}> */}
     <ScrollView style={{width: '100%'}}>
@@ -74,10 +143,10 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
        <View style={styles.overlay}>
         <View style={styles.titleDescriptionCard}>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TextView style={styles.title}>Card Title</TextView>
-            <TextView style={[styles.title, {fontSize: getSize(Sizes.large)}]}>{'\u20B9'}50,000</TextView>
+            <TextView style={styles.title}>{event.event}</TextView>
+            <TextView style={[styles.title, {fontSize: getSize(Sizes.large)}]}>{'\u20B9'}{event.budget}</TextView>
             </View>
-          <TextView style={styles.description}>Description goes here</TextView>
+          <TextView style={styles.description}>{event.venue}</TextView>
         </View>
       </View>
     </View>
@@ -98,7 +167,7 @@ const Details: React.FC<MyComponentProps> = ({navigation}) => {
         </View>
     </View>
     <View style={styles.valueContainer}>
-    <TouchableComponent touchable="opacity" onPress={()=>(console.log("Send Invitation"))} style={styles.inviteButton}>
+    <TouchableComponent touchable="opacity" onPress={()=>sendInvitaion()} style={styles.inviteButton}>
         <TextView style={{color: getColor({color: Colors.white})}}>Send Invitation</TextView>
       </TouchableComponent>
       <TouchableComponent touchable="opacity" onPress={handleNavigate} style={styles.inviteButton}>

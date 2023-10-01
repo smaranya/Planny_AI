@@ -1,64 +1,110 @@
 import { TextView } from '../../components/atoms/TextView';
 import React, { useEffect, useState } from 'react'
-import { Animated, Dimensions, FlatList, ScrollView, StyleSheet, View } from 'react-native'
+import { Animated, Dimensions, FlatList, ScrollView, Share, StyleSheet, View } from 'react-native'
 import { Sizes, getSize } from '../../styles/fonts/sizes';
 import { Colors, getColor } from '../../styles/colors';
 import { FontStyles } from '../../styles/fonts/names';
 import { Spaces, getSpace } from '../../styles/spaces';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import navigateTo from '../../navigation/navigateTo';
 import Loader from '../../components/compounds/Loader';
 import { Icon } from '../../components/atoms/Icon';
 import TouchableComponent from '../../components/molecules/TouchableComponent';
 import Card from '../../components/compounds/Card';
+import { gptData } from '../wedding/api/ApiCall';
+import routes from 'app/navigation/routes';
+import { WeddingEvent, WeddingPlanningResponse } from '../wedding/api/Model';
 
 type MyComponentProps = {
     navigation: NavigationProp<any>; // Adjust the type if you have a specific navigator
 };
+interface Params{
+  budget : string,
+  name : string
+}
+
 
 const Plans: React.FC<MyComponentProps> = ({navigation}) => {
+ 
+    
 
-  const handleNavigate = () => {
+
+  const handleNavigate = (event: WeddingEvent) => {
+   
     navigateTo({
       navigation,
       path: '/plans/details', // Replace with the desired path
       params: {
-        // Include any additional parameters you need
+        name : name,
+       event : event,
+       jsonData : data
       },
       replace: false, // Set to true if you want to use replace navigation
     });
   };
-
-  const data = [
-    { id: '1', title: 'Haldi', cost: '100', guestCount: '2', imageSource: require('../../assets/wedding.png') },
-    { id: '2', title: 'Mehendi', cost: '150', guestCount: '3', imageSource: require('../../assets/wedding.png') },
-    { id: '3', title: 'Sangeet', cost: '200', guestCount: '4', imageSource: require('../../assets/wedding.png')}
-  ];
-
+  const route = useRoute();
+  const { budget,name } = route.params as Params;
+  
   const [loading, setLoading] = useState(true);
-
   const [visibleCards, setVisibleCards] = useState<number>(-1);
-
+  const [data, setData] = useState<WeddingPlanningResponse>();
+  const events = data?.events;
   useEffect(() => {
-    const loadingTimer = setTimeout(() => {
+    const loadDataAndTimer = async () => {
+      // Simulate loading the data asynchronously
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Adjust the delay as needed
+  
+      // Fetch data when the timeout is working
+      // const jsonData = gptData(budget);
+      const jsonData = {
+
+        events: [
+          {
+            key: 1,
+            event: "Sangeet Ceremony",
+            date: "2023-11-10",
+            venue: "Grand Banquet Hall",
+            time: "6:00 PM",
+            budget: 800000
+          },
+          {
+            key: 2,
+            event: "Mehndi Ceremony",
+            date: "2023-11-11",
+            venue: "Outdoor Garden",
+            time: "2:00 PM",
+            budget: 600000
+          },
+          {
+            key: 3,
+            event: "Haldi Ceremony",
+            date: "2023-11-12",
+            venue: "Family Home",
+            time: "10:00 AM",
+            budget: 400000
+    
+          }
+        ]
+      }
+      // Update the 'data' state with the fetched data
+      setData( await jsonData);
+  
       setLoading(false);
       setVisibleCards(0);
-    }, 6000);
-
-    return () => clearTimeout(loadingTimer);
-  }, []);
-
-  useEffect(() => {
-    if (visibleCards >= 0 && visibleCards < data.length - 1) {
-      const timer = setTimeout(() => {
-        setVisibleCards((prevCount) => prevCount + 1);
-      }, 500);
-
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [visibleCards]);
+  
+      if (visibleCards >= 0 && visibleCards <  ( await jsonData).events.length - 1) {
+        const timer = setTimeout(() => {
+          setVisibleCards((prevCount) => prevCount + 1);
+        }, 500);
+  
+        return () => {
+          clearTimeout(timer);
+        };
+      }
+    };
+  
+    loadDataAndTimer();
+  }, [budget, visibleCards]);
 
   return (
     <View style={styles.outer}>
@@ -75,38 +121,29 @@ const Plans: React.FC<MyComponentProps> = ({navigation}) => {
             LOGO
           </TextView>
         </View>
-        <View style={styles.right}>
-          <TextView 
-          style={[styles.username, {fontSize: getSize(Sizes.large)}]}
-          textColor={{color: Colors.black}}
-          fontFamily={FontStyles.blockReg}>
-            Hello, User</TextView>
-          <TouchableComponent touchable="opacity" onPress={() => console.log("Menu Pressed!")}>
-            <Icon 
-              iconName={'menu'}
-            />
-          </TouchableComponent>
-        </View>
+     
         </View>
         <TextView style={styles.title}>
           Let's Plan the Wedding
         </TextView>
         {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
         <View style={styles.cards}>
-         <FlatList
-              data={data.slice(0, visibleCards + 1)}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item, index }) => (
+              <FlatList
+                data={events}
+                keyExtractor={(item) => item.key.toString()} // Using key as a string
+                renderItem={({ item }) => (
                   <Card
-                    imageSource={item.imageSource}
-                    title={item.title}
-                    cost={item.cost}
-                    guestCount={item.guestCount}
-                    onPress={handleNavigate}
+                    imageSource={require('../../assets/wedding.png')} // Assuming a common image for all events
+                    title={item.event}
+                    cost={item.budget.toString() } // Converting budget to string
+                    guestCount={item.date} // Using date as guest count for demonstration
+                    onPress={()=> {
+                      handleNavigate(item)
+                    }}
                   />
                 )}
-          />
-        </View>
+              />
+            </View>
         {/* </ScrollView> */}
         </View>)}
         </View>
